@@ -1,0 +1,2299 @@
+{
+    "swagger": "2.0",
+    "basePath": "\/",
+    "paths": {
+        "\/account": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#\/definitions\/Profile"
+                        }
+                    }
+                },
+                "summary": "\u0412\u043e\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442 \u0443\u0447\u0435\u0442\u043d\u0443\u044e \u0437\u0430\u043f\u0438\u0441\u044c \u0432\u043c\u0435\u0441\u0442\u0435 \u0441 \u043f\u0440\u043e\u0444\u0438\u043b\u044f\u043c\u0438 \u043f\u0440\u0435\u0434\u043f\u0440\u0438\u044f\u0442\u0438\u0439\/\u0424\u041e\u041f\u043e\u0432",
+                "operationId": "get_account_api",
+                "parameters": [
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "account"
+                ]
+            }
+        },
+        "\/user\/{userId}\/accounts": {
+            "parameters": [
+                {
+                    "in": "path",
+                    "description": "\u0418\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440 \u043f\u0440\u043e\u0444\u0438\u043b\u044f",
+                    "name": "userId",
+                    "required": true,
+                    "type": "integer"
+                }
+            ],
+            "post": {
+                "responses": {
+                    "500": {
+                        "description": "Shit happens"
+                    },
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#\/definitions\/AddUserBankAccountResponse"
+                        }
+                    }
+                },
+                "summary": "\u0414\u043e\u0431\u0430\u0432\u043b\u0435\u043d\u0438\u0435 \u043d\u043e\u0432\u043e\u0433\u043e \u0441\u0447\u0435\u0442\u0430",
+                "operationId": "post_user_accounts_all",
+                "parameters": [
+                    {
+                        "name": "payload",
+                        "required": true,
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#\/definitions\/AddUserBankAccount"
+                        }
+                    },
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "accounts"
+                ]
+            },
+            "get": {
+                "responses": {
+                    "500": {
+                        "description": "Shit happens"
+                    },
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#\/definitions\/UserBankAccount"
+                            }
+                        }
+                    }
+                },
+                "summary": "\u0412\u043e\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442 _\u0432\u0441\u0435_ \u0437\u0430\u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0438\u0440\u043e\u0432\u0430\u043d\u043d\u044b\u0435 \u0441\u0447\u0435\u0442\u0430 \u0434\u043b\u044f \u043f\u0440\u043e\u0444\u0438\u043b\u044f",
+                "operationId": "get_user_accounts_all",
+                "parameters": [
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "accounts"
+                ]
+            }
+        },
+        "\/user\/{userId}\/accounts\/page\/{pageNumber}": {
+            "parameters": [
+                {
+                    "in": "query",
+                    "description": "\u0441\u0442\u0440\u043e\u043a\u0430 \u043f\u043e\u0438\u0441\u043a\u0430 \u0432 Lucene \u043d\u043e\u0442\u0430\u0446\u0438\u0438",
+                    "name": "q",
+                    "type": "string"
+                },
+                {
+                    "in": "path",
+                    "description": "\u041d\u043e\u043c\u0435\u0440 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u044b",
+                    "name": "pageNumber",
+                    "required": true,
+                    "type": "integer"
+                },
+                {
+                    "in": "path",
+                    "description": "\u0418\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440 \u043f\u0440\u043e\u0444\u0438\u043b\u044f",
+                    "name": "userId",
+                    "required": true,
+                    "type": "integer"
+                }
+            ],
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#\/definitions\/UserAccounts"
+                        }
+                    }
+                },
+                "summary": "\u0412\u043e\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442 \u0437\u0430\u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0438\u0440\u043e\u0432\u0430\u043d\u043d\u044b\u0435 \u0441\u0447\u0435\u0442\u0430 \u0434\u043b\u044f \u043f\u0440\u043e\u0444\u0438\u043b\u044f \u043f\u043e\u0441\u0442\u0440\u0430\u043d\u0438\u0447\u043d\u043e",
+                "operationId": "get_user_accounts",
+                "parameters": [
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "accounts"
+                ]
+            }
+        },
+        "\/user\/{userId}\/document\/act": {
+            "parameters": [
+                {
+                    "in": "path",
+                    "description": "\u0418\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440 \u043f\u0440\u043e\u0444\u0438\u043b\u044f",
+                    "name": "userId",
+                    "required": true,
+                    "type": "integer"
+                }
+            ],
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#\/definitions\/AddDocumentResponse"
+                        }
+                    }
+                },
+                "summary": "\u0414\u043e\u0431\u0430\u0432\u043b\u0435\u043d\u0438\u0435 \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0430 \u0442\u0438\u043f\u0430 \u0410\u043a\u0442",
+                "operationId": "post_user_document_act_list",
+                "parameters": [
+                    {
+                        "name": "payload",
+                        "required": true,
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#\/definitions\/AddDocumentAct"
+                        }
+                    },
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "document"
+                ]
+            }
+        },
+        "\/user\/{userId}\/document\/act\/{docId}": {
+            "parameters": [
+                {
+                    "in": "path",
+                    "description": "\u0418\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440 \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0430",
+                    "name": "docId",
+                    "required": true,
+                    "type": "integer"
+                },
+                {
+                    "in": "path",
+                    "description": "\u0418\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440 \u043f\u0440\u043e\u0444\u0438\u043b\u044f",
+                    "name": "userId",
+                    "required": true,
+                    "type": "integer"
+                }
+            ],
+            "get": {
+                "responses": {
+                    "500": {
+                        "description": "Shit happens"
+                    },
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#\/definitions\/DocumentAct"
+                        }
+                    }
+                },
+                "summary": "\u0412\u043e\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442 \u0440\u0430\u0441\u0448\u0438\u0440\u0435\u043d\u043d\u044b\u0435 \u0441\u0432\u043e\u0439\u0441\u0442\u0432\u0430 \u0430\u043a\u0442\u0430 \u0434\u043b\u044f \u043f\u0440\u043e\u0444\u0438\u043b\u044f",
+                "operationId": "get_user_document_act",
+                "parameters": [
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "document"
+                ]
+            }
+        },
+        "\/user\/{userId}\/document\/contract": {
+            "parameters": [
+                {
+                    "in": "path",
+                    "description": "\u0418\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440 \u043f\u0440\u043e\u0444\u0438\u043b\u044f",
+                    "name": "userId",
+                    "required": true,
+                    "type": "integer"
+                }
+            ],
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#\/definitions\/AddDocumentResponse"
+                        }
+                    }
+                },
+                "summary": "\u0414\u043e\u0431\u0430\u0432\u043b\u0435\u043d\u0438\u0435 \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0430 \u0442\u0438\u043f\u0430 \u0414\u043e\u0433\u043e\u0432\u043e\u0440",
+                "operationId": "post_user_document_contract_list",
+                "parameters": [
+                    {
+                        "name": "payload",
+                        "required": true,
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#\/definitions\/AddDocumentContract"
+                        }
+                    },
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "document"
+                ]
+            }
+        },
+        "\/user\/{userId}\/document\/contract\/{docId}": {
+            "parameters": [
+                {
+                    "in": "path",
+                    "description": "\u0418\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440 \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0430",
+                    "name": "docId",
+                    "required": true,
+                    "type": "integer"
+                },
+                {
+                    "in": "path",
+                    "description": "\u0418\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440 \u043f\u0440\u043e\u0444\u0438\u043b\u044f",
+                    "name": "userId",
+                    "required": true,
+                    "type": "integer"
+                }
+            ],
+            "get": {
+                "responses": {
+                    "500": {
+                        "description": "Shit happens"
+                    },
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#\/definitions\/DocumentContract"
+                        }
+                    }
+                },
+                "summary": "\u0412\u043e\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442 \u0440\u0430\u0441\u0448\u0438\u0440\u0435\u043d\u043d\u044b\u0435 \u0441\u0432\u043e\u0439\u0441\u0442\u0432\u0430 \u043a\u043e\u043d\u0442\u0440\u0430\u043a\u0442\u0430 \u0434\u043b\u044f \u043f\u0440\u043e\u0444\u0438\u043b\u044f",
+                "operationId": "get_user_document_contract",
+                "parameters": [
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "document"
+                ]
+            }
+        },
+        "\/user\/{userId}\/documents": {
+            "parameters": [
+                {
+                    "in": "path",
+                    "description": "\u0418\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440 \u043f\u0440\u043e\u0444\u0438\u043b\u044f",
+                    "name": "userId",
+                    "required": true,
+                    "type": "integer"
+                }
+            ],
+            "get": {
+                "responses": {
+                    "500": {
+                        "description": "Shit happens"
+                    },
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#\/definitions\/DocumentBrief"
+                            }
+                        }
+                    }
+                },
+                "summary": "\u0412\u043e\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442 _\u0432\u0441\u0435_ \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u044b \u0434\u043b\u044f \u043f\u0440\u043e\u0444\u0438\u043b\u044f",
+                "operationId": "get_user_documents_all",
+                "parameters": [
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "document"
+                ]
+            }
+        },
+        "\/user\/{userId}\/documents\/page\/{pageNumber}": {
+            "parameters": [
+                {
+                    "in": "path",
+                    "description": "\u041d\u043e\u043c\u0435\u0440 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u044b",
+                    "name": "pageNumber",
+                    "required": true,
+                    "type": "integer"
+                },
+                {
+                    "in": "path",
+                    "description": "\u0418\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440 \u043f\u0440\u043e\u0444\u0438\u043b\u044f",
+                    "name": "userId",
+                    "required": true,
+                    "type": "integer"
+                }
+            ],
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#\/definitions\/Documents"
+                        }
+                    }
+                },
+                "summary": "\u0412\u043e\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442 \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u044b \u0434\u043b\u044f \u043f\u0440\u043e\u0444\u0438\u043b\u044f \u043f\u043e\u0441\u0442\u0440\u0430\u043d\u0438\u0447\u043d\u043e",
+                "operationId": "get_user_documents_page",
+                "parameters": [
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "document"
+                ]
+            }
+        },
+        "\/user\/{userId}\/operation": {
+            "parameters": [
+                {
+                    "in": "query",
+                    "description": "\u0441\u0442\u0440\u043e\u043a\u0430 \u043f\u043e\u0438\u0441\u043a\u0430 \u0432 Lucene \u043d\u043e\u0442\u0430\u0446\u0438\u0438",
+                    "name": "q",
+                    "type": "string"
+                },
+                {
+                    "in": "path",
+                    "description": "\u0418\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440 \u043f\u0440\u043e\u0444\u0438\u043b\u044f",
+                    "name": "userId",
+                    "required": true,
+                    "type": "integer"
+                }
+            ],
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#\/definitions\/OperationBrief"
+                            }
+                        }
+                    }
+                },
+                "summary": "\u0412\u043e\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442 \u043a\u0440\u0430\u0442\u043a\u043e\u0435 \u043e\u043f\u0438\u0441\u0430\u043d\u0438\u0435 _\u0432\u0441\u0435\u0445_ \u043e\u043f\u0435\u0440\u0430\u0446\u0438\u0439",
+                "description": "\u041c\u043e\u0436\u0435\u0442 \u0437\u0430\u043d\u044f\u0442\u044c \u043e\u043f\u0440\u0435\u0434\u0435\u043b\u0435\u043d\u043d\u043e\u0435 \u0432\u0440\u0435\u043c\u044f",
+                "operationId": "get_operations_all",
+                "parameters": [
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "operation"
+                ]
+            }
+        },
+        "\/user\/{userId}\/operation\/autoexchange": {
+            "parameters": [
+                {
+                    "in": "path",
+                    "description": "\u0418\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440 \u043f\u0440\u043e\u0444\u0438\u043b\u044f",
+                    "name": "userId",
+                    "required": true,
+                    "type": "integer"
+                }
+            ],
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#\/definitions\/AddOperationResponse"
+                        }
+                    }
+                },
+                "summary": "\u0414\u043e\u0431\u0430\u0432\u043b\u0435\u043d\u0438\u0435 \u0412\u0430\u043b\u044e\u0442\u043d\u043e\u043c\u0433\u043e \u0434\u043e\u0445\u043e\u0434\u0430",
+                "operationId": "post_add_auto_exchange_operation",
+                "parameters": [
+                    {
+                        "name": "payload",
+                        "required": true,
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#\/definitions\/AddAutoExchange"
+                        }
+                    },
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "operation"
+                ]
+            }
+        },
+        "\/user\/{userId}\/operation\/autoexchange\/{operationId}": {
+            "parameters": [
+                {
+                    "in": "path",
+                    "description": "\u0418\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440 \u043e\u043f\u0435\u0440\u0430\u0446\u0438\u0438",
+                    "name": "operationId",
+                    "required": true,
+                    "type": "integer"
+                },
+                {
+                    "in": "path",
+                    "description": "\u0418\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440 \u043f\u0440\u043e\u0444\u0438\u043b\u044f",
+                    "name": "userId",
+                    "required": true,
+                    "type": "integer"
+                }
+            ],
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#\/definitions\/AutoExchange"
+                        }
+                    }
+                },
+                "summary": "\u0412\u043e\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442 _\u043f\u043e\u043b\u043d\u044b\u0435_ \u0434\u0430\u043d\u043d\u044b\u0435 \u043f\u043e \u0412\u0430\u043b\u044e\u0442\u043d\u043e\u043c\u0443 \u0434\u043e\u0445\u043e\u0434\u0443",
+                "operationId": "get_auto_exchange_operation",
+                "parameters": [
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "operation"
+                ]
+            }
+        },
+        "\/user\/{userId}\/operation\/currencyexchange": {
+            "parameters": [
+                {
+                    "in": "path",
+                    "description": "\u0418\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440 \u043f\u0440\u043e\u0444\u0438\u043b\u044f",
+                    "name": "userId",
+                    "required": true,
+                    "type": "integer"
+                }
+            ],
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#\/definitions\/AddOperationResponse"
+                        }
+                    }
+                },
+                "summary": "\u0414\u043e\u0431\u0430\u0432\u043b\u0435\u043d\u0438\u0435 \u041e\u0431\u043c\u0435\u043d\u0430 \u0412\u0430\u043b\u044e\u0442\u044b",
+                "operationId": "post_add_currency_exchange_operation",
+                "parameters": [
+                    {
+                        "name": "payload",
+                        "required": true,
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#\/definitions\/AddCurrencyExchange"
+                        }
+                    },
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "operation"
+                ]
+            }
+        },
+        "\/user\/{userId}\/operation\/currencyexchange\/{operationId}": {
+            "parameters": [
+                {
+                    "in": "path",
+                    "description": "\u0418\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440 \u043e\u043f\u0435\u0440\u0430\u0446\u0438\u0438",
+                    "name": "operationId",
+                    "required": true,
+                    "type": "integer"
+                },
+                {
+                    "in": "path",
+                    "description": "\u0418\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440 \u043f\u0440\u043e\u0444\u0438\u043b\u044f",
+                    "name": "userId",
+                    "required": true,
+                    "type": "integer"
+                }
+            ],
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#\/definitions\/CurrencyExchange"
+                        }
+                    }
+                },
+                "summary": "\u0412\u043e\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442 _\u043f\u043e\u043b\u043d\u044b\u0435_ \u0434\u0430\u043d\u043d\u044b\u0435 \u043f\u043e \u041e\u0431\u043c\u0435\u043d\u0443 \u0412\u0430\u043b\u044e\u0442\u044b",
+                "operationId": "get_currency_exchange_operation",
+                "parameters": [
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "operation"
+                ]
+            }
+        },
+        "\/user\/{userId}\/operation\/flowincome": {
+            "parameters": [
+                {
+                    "in": "path",
+                    "description": "\u0418\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440 \u043f\u0440\u043e\u0444\u0438\u043b\u044f",
+                    "name": "userId",
+                    "required": true,
+                    "type": "integer"
+                }
+            ],
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#\/definitions\/AddOperationResponse"
+                        }
+                    }
+                },
+                "summary": "\u0414\u043e\u0431\u0430\u0432\u043b\u0435\u043d\u0438\u0435 \u0414\u043e\u0445\u043e\u0434-\u0430",
+                "operationId": "post_add_flow_income_operation",
+                "parameters": [
+                    {
+                        "name": "payload",
+                        "required": true,
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#\/definitions\/AddOperationFlowIncome"
+                        }
+                    },
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "operation"
+                ]
+            }
+        },
+        "\/user\/{userId}\/operation\/flowincome\/{operationId}": {
+            "parameters": [
+                {
+                    "in": "path",
+                    "description": "\u0418\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440 \u043e\u043f\u0435\u0440\u0430\u0446\u0438\u0438",
+                    "name": "operationId",
+                    "required": true,
+                    "type": "integer"
+                },
+                {
+                    "in": "path",
+                    "description": "\u0418\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440 \u043f\u0440\u043e\u0444\u0438\u043b\u044f",
+                    "name": "userId",
+                    "required": true,
+                    "type": "integer"
+                }
+            ],
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#\/definitions\/OperationFlowIncome"
+                        }
+                    }
+                },
+                "summary": "\u0412\u043e\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442 _\u043f\u043e\u043b\u043d\u044b\u0435_ \u0434\u0430\u043d\u043d\u044b\u0435 \u043f\u043e \"\u0414\u043e\u0445\u043e\u0434\u0443\"",
+                "operationId": "get_flow_income_operation",
+                "parameters": [
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "operation"
+                ]
+            }
+        },
+        "\/user\/{userId}\/operation\/flowoutgo": {
+            "parameters": [
+                {
+                    "in": "path",
+                    "description": "\u0418\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440 \u043f\u0440\u043e\u0444\u0438\u043b\u044f",
+                    "name": "userId",
+                    "required": true,
+                    "type": "integer"
+                }
+            ],
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#\/definitions\/AddOperationResponse"
+                        }
+                    }
+                },
+                "summary": "\u0414\u043e\u0431\u0430\u0432\u043b\u0435\u043d\u0438\u0435 \u0420\u0430\u0441\u0445\u043e\u0434-\u0430",
+                "operationId": "post_add_flow_outgo_operation",
+                "parameters": [
+                    {
+                        "name": "payload",
+                        "required": true,
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#\/definitions\/AddOperationFlowOutgo"
+                        }
+                    },
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "operation"
+                ]
+            }
+        },
+        "\/user\/{userId}\/operation\/flowoutgo\/{operationId}": {
+            "parameters": [
+                {
+                    "in": "path",
+                    "description": "\u0418\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440 \u043e\u043f\u0435\u0440\u0430\u0446\u0438\u0438",
+                    "name": "operationId",
+                    "required": true,
+                    "type": "integer"
+                },
+                {
+                    "in": "path",
+                    "description": "\u0418\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440 \u043f\u0440\u043e\u0444\u0438\u043b\u044f",
+                    "name": "userId",
+                    "required": true,
+                    "type": "integer"
+                }
+            ],
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#\/definitions\/OperationFlowOutgo"
+                        }
+                    }
+                },
+                "summary": "\u0412\u043e\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442 _\u043f\u043e\u043b\u043d\u044b\u0435_ \u0434\u0430\u043d\u043d\u044b\u0435 \u043f\u043e \"\u0420\u0430\u0441\u0445\u043e\u0434\u0443\"",
+                "operationId": "get_flow_outgo_operation",
+                "parameters": [
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "operation"
+                ]
+            }
+        },
+        "\/user\/{userId}\/operation\/page\/{pageNumber}": {
+            "parameters": [
+                {
+                    "in": "query",
+                    "description": "\u0441\u0442\u0440\u043e\u043a\u0430 \u043f\u043e\u0438\u0441\u043a\u0430 \u0432 Lucene \u043d\u043e\u0442\u0430\u0446\u0438\u0438",
+                    "name": "q",
+                    "type": "string"
+                },
+                {
+                    "in": "path",
+                    "description": "\u041d\u043e\u043c\u0435\u0440 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u044b",
+                    "name": "pageNumber",
+                    "required": true,
+                    "type": "integer"
+                },
+                {
+                    "in": "path",
+                    "description": "\u0418\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440 \u043f\u0440\u043e\u0444\u0438\u043b\u044f",
+                    "name": "userId",
+                    "required": true,
+                    "type": "integer"
+                }
+            ],
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#\/definitions\/OperationsBrief"
+                        }
+                    }
+                },
+                "summary": "\u0412\u043e\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442 \u043a\u0440\u0430\u0442\u043a\u043e\u0435 \u043e\u043f\u0438\u0441\u0430\u043d\u0438\u0435 \u043e\u043f\u0435\u0440\u0430\u0446\u0438\u0439 \u043f\u043e\u0441\u0442\u0440\u0430\u043d\u0438\u0447\u043d\u043e",
+                "operationId": "get_operations_brief",
+                "parameters": [
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "operation"
+                ]
+            }
+        },
+        "\/user\/{userId}\/operation\/withdrawal": {
+            "parameters": [
+                {
+                    "in": "path",
+                    "description": "\u0418\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440 \u043f\u0440\u043e\u0444\u0438\u043b\u044f",
+                    "name": "userId",
+                    "required": true,
+                    "type": "integer"
+                }
+            ],
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#\/definitions\/AddOperationResponse"
+                        }
+                    }
+                },
+                "summary": "\u041f\u0435\u0440\u0435\u0432\u043e\u0434 \u043c\u0435\u0436\u0434\u0443 \u0441\u0447\u0435\u0442\u0430\u043c\u0438",
+                "operationId": "post_add_withdrawal_operation",
+                "parameters": [
+                    {
+                        "name": "payload",
+                        "required": true,
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#\/definitions\/AddOperationWithdrawal"
+                        }
+                    },
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "operation"
+                ]
+            }
+        },
+        "\/user\/{userId}\/operation\/withdrawal\/{operationId}": {
+            "parameters": [
+                {
+                    "in": "path",
+                    "description": "\u0418\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440 \u043e\u043f\u0435\u0440\u0430\u0446\u0438\u0438",
+                    "name": "operationId",
+                    "required": true,
+                    "type": "integer"
+                },
+                {
+                    "in": "path",
+                    "description": "\u0418\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440 \u043f\u0440\u043e\u0444\u0438\u043b\u044f",
+                    "name": "userId",
+                    "required": true,
+                    "type": "integer"
+                }
+            ],
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#\/definitions\/OperationWithdrawal"
+                        }
+                    }
+                },
+                "summary": "\u0412\u043e\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442 _\u043f\u043e\u043b\u043d\u044b\u0435_ \u0434\u0430\u043d\u043d\u044b\u0435 \u043f\u043e \"\u041f\u0435\u0440\u0435\u0432\u043e\u0434\u0443 \u043c\u0435\u0436\u0434\u0443 \u0441\u0447\u0435\u0442\u0430\u043c\u0438\"",
+                "operationId": "get_withdrawal_operation",
+                "parameters": [
+                    {
+                        "name": "X-Fields",
+                        "in": "header",
+                        "type": "string",
+                        "format": "mask",
+                        "description": "An optional fields mask"
+                    }
+                ],
+                "tags": [
+                    "operation"
+                ]
+            }
+        }
+    },
+    "info": {
+        "title": "Taxer API",
+        "version": "1.0",
+        "description": "taxer.ua proxy API"
+    },
+    "produces": [
+        "application\/json"
+    ],
+    "consumes": [
+        "application\/json"
+    ],
+    "tags": [
+        {
+            "name": "account",
+            "description": "\u0423\u0447\u0435\u0442\u043d\u0430\u044f \u0437\u0430\u043f\u0438\u0441\u044c"
+        },
+        {
+            "name": "accounts",
+            "description": "\u0411\u0430\u043d\u043a\u043e\u0432\u0441\u043a\u0438\u0435 \u0441\u0447\u0435\u0442\u0430"
+        },
+        {
+            "name": "document",
+            "description": "\u0414\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u044b"
+        },
+        {
+            "name": "operation",
+            "description": "\u041e\u043f\u0435\u0440\u0430\u0446\u0438\u0438"
+        }
+    ],
+    "definitions": {
+        "Profile": {
+            "properties": {
+                "accountId": {
+                    "type": "integer",
+                    "description": "\u0418\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440 \u0430\u043a\u043a\u0430\u0443\u043d\u0442\u0430"
+                },
+                "accountName": {
+                    "type": "string",
+                    "description": "\u0418\u043c\u044f \u0430\u043a\u043a\u0430\u0443\u043d\u0442\u0430"
+                },
+                "users": {
+                    "type": "array",
+                    "description": "\u0417\u0430\u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0438\u0440\u043e\u0432\u0430\u043d\u043d\u044b\u0435 \u043f\u0440\u043e\u0444\u0438\u043b\u0438",
+                    "items": {
+                        "$ref": "#\/definitions\/User"
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "User": {
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "description": "\u0418\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440 \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f"
+                },
+                "idKey": {
+                    "type": "string",
+                    "description": "\u0418\u041d\u041d"
+                },
+                "titleName": {
+                    "type": "string",
+                    "description": "\u0418\u043c\u044f \u043f\u0440\u043e\u0444\u0438\u043b\u044f"
+                },
+                "isCompany": {
+                    "type": "boolean",
+                    "description": "\u041e\u041e\u041e\/\u0424\u041e\u041f"
+                }
+            },
+            "type": "object"
+        },
+        "UserAccounts": {
+            "properties": {
+                "paginator": {
+                    "description": "\u0421\u0442\u0440\u0430\u043d\u0438\u0446\u044b",
+                    "allOf": [
+                        {
+                            "$ref": "#\/definitions\/Paginator"
+                        }
+                    ]
+                },
+                "accountsCurrencies": {
+                    "type": "array",
+                    "description": "\u0412\u0430\u043b\u044e\u0442\u044b \u0441\u0447\u0435\u0442\u043e\u0432",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "accounts": {
+                    "type": "array",
+                    "description": "\u0421\u0447\u0435\u0442\u0430",
+                    "items": {
+                        "$ref": "#\/definitions\/UserBankAccount"
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "Paginator": {
+            "properties": {
+                "currentPage": {
+                    "type": "integer",
+                    "description": "\u0422\u0435\u043a\u0443\u0449\u0430\u044f \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u0430"
+                },
+                "recordsOnPage": {
+                    "type": "integer",
+                    "description": "\u042d\u043b\u0435\u043c\u0435\u043d\u0442\u043e\u0432 \u043d\u0430 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u0435"
+                },
+                "totalPages": {
+                    "type": "integer",
+                    "description": "\u0412\u0441\u0435\u0433\u043e \u0441\u0442\u0440\u0430\u043d\u0438\u0446"
+                }
+            },
+            "type": "object"
+        },
+        "UserBankAccount": {
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "description": "\u0418\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440 \u0441\u0447\u0435\u0442\u0430 \u043f\u0440\u043e\u0444\u0438\u043b\u044f"
+                },
+                "balance": {
+                    "type": "number",
+                    "description": "\u0411\u0430\u043b\u0430\u043d\u0441 \u0441\u0447\u0435\u0442\u0430"
+                },
+                "title": {
+                    "type": "string",
+                    "description": "\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435 \u0441\u0447\u0435\u0442\u0430"
+                },
+                "currency": {
+                    "type": "string",
+                    "description": "\u0412\u0430\u043b\u044e\u0442\u0430"
+                },
+                "num": {
+                    "type": "string",
+                    "description": "\u041d\u043e\u043c\u0435\u0440 \u0441\u0447\u0435\u0442\u0430 \u0432 \u0431\u0430\u043d\u043a\u0435"
+                },
+                "bank": {
+                    "type": "string",
+                    "description": "\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435 \u0431\u0430\u043d\u043a\u0430"
+                },
+                "mfo": {
+                    "type": "string",
+                    "description": "\u041c\u0424\u041e"
+                },
+                "comment": {
+                    "type": "string",
+                    "description": "\u041a\u043e\u043c\u0435\u043d\u0442\u0430\u0440\u0438\u0439"
+                },
+                "tfBankPlace": {
+                    "type": "string",
+                    "description": "\u0410\u0434\u0440\u0435\u0441 \u0431\u0430\u043d\u043a\u0430"
+                },
+                "tfBankSwift": {
+                    "type": "string",
+                    "description": "SWIFT"
+                },
+                "tfBankCorr": {
+                    "type": "string",
+                    "description": "\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u044f \u0431\u0430\u043d\u043a\u0430-\u043a\u043e\u0440\u0440\u0435\u0441\u043f\u043e\u043d\u0434\u0435\u043d\u0442\u0430"
+                },
+                "tfBankCorrPlace": {
+                    "type": "string",
+                    "description": "\u0410\u0434\u0440\u0435\u0441 \u0431\u0430\u043d\u043a\u0430-\u043a\u043e\u0440\u0440\u0435\u0441\u043f\u043e\u043d\u0434\u0435\u043d\u0442\u0430"
+                },
+                "tfBankCorrSwift": {
+                    "type": "string",
+                    "description": "SWIFT \u0431\u0430\u043d\u043a\u0430-\u043a\u043e\u0440\u0440\u0435\u0441\u043f\u043e\u043d\u0434\u0435\u043d\u0442\u0430"
+                },
+                "tfBankCorrAccount": {
+                    "type": "string",
+                    "description": "\u0421\u0447\u0435\u0442 \u0432 \u0431\u0430\u043d\u043a\u0435-\u043a\u043e\u0440\u0440\u0435\u0441\u043f\u043e\u043d\u0434\u0435\u043d\u0442\u0435"
+                }
+            },
+            "type": "object"
+        },
+        "AddUserBankAccount": {
+            "properties": {
+                "title": {
+                    "type": "string",
+                    "description": "\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435 \u0441\u0447\u0435\u0442\u0430"
+                },
+                "currency": {
+                    "type": "string",
+                    "description": "\u0412\u0430\u043b\u044e\u0442\u0430"
+                },
+                "num": {
+                    "type": "string",
+                    "description": "\u041d\u043e\u043c\u0435\u0440 \u0441\u0447\u0435\u0442\u0430 \u0432 \u0431\u0430\u043d\u043a\u0435"
+                },
+                "bank": {
+                    "type": "string",
+                    "description": "\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435 \u0431\u0430\u043d\u043a\u0430"
+                },
+                "mfo": {
+                    "type": "string",
+                    "description": "\u041c\u0424\u041e"
+                },
+                "comment": {
+                    "type": "string",
+                    "description": "\u041a\u043e\u043c\u0435\u043d\u0442\u0430\u0440\u0438\u0439"
+                },
+                "tfBankPlace": {
+                    "type": "string",
+                    "description": "\u0410\u0434\u0440\u0435\u0441 \u0431\u0430\u043d\u043a\u0430"
+                },
+                "tfBankSwift": {
+                    "type": "string",
+                    "description": "SWIFT"
+                },
+                "tfBankCorr": {
+                    "type": "string",
+                    "description": "\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u044f \u0431\u0430\u043d\u043a\u0430-\u043a\u043e\u0440\u0440\u0435\u0441\u043f\u043e\u043d\u0434\u0435\u043d\u0442\u0430"
+                },
+                "tfBankCorrPlace": {
+                    "type": "string",
+                    "description": "\u0410\u0434\u0440\u0435\u0441 \u0431\u0430\u043d\u043a\u0430-\u043a\u043e\u0440\u0440\u0435\u0441\u043f\u043e\u043d\u0434\u0435\u043d\u0442\u0430"
+                },
+                "tfBankCorrSwift": {
+                    "type": "string",
+                    "description": "SWIFT \u0431\u0430\u043d\u043a\u0430-\u043a\u043e\u0440\u0440\u0435\u0441\u043f\u043e\u043d\u0434\u0435\u043d\u0442\u0430"
+                },
+                "tfBankCorrAccount": {
+                    "type": "string",
+                    "description": "\u0421\u0447\u0435\u0442 \u0432 \u0431\u0430\u043d\u043a\u0435-\u043a\u043e\u0440\u0440\u0435\u0441\u043f\u043e\u043d\u0434\u0435\u043d\u0442\u0435"
+                }
+            },
+            "type": "object"
+        },
+        "AddUserBankAccountResponse": {
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "description": "\u0418\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440 \u0441\u0447\u0435\u0442\u0430"
+                }
+            },
+            "type": "object"
+        },
+        "Documents": {
+            "properties": {
+                "paginator": {
+                    "description": "\u0421\u0442\u0440\u0430\u043d\u0438\u0446\u044b",
+                    "allOf": [
+                        {
+                            "$ref": "#\/definitions\/Paginator"
+                        }
+                    ]
+                },
+                "documents": {
+                    "type": "array",
+                    "description": "\u0414\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u044b",
+                    "items": {
+                        "$ref": "#\/definitions\/DocumentBrief"
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "DocumentBrief": {
+            "properties": {
+                "date": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "\u0414\u0430\u0442\u0430 \u0441\u043e\u0437\u0434\u0430\u043d\u0438\u044f\/\u043f\u043e\u0434\u043f\u0438\u0441\u0430\u043d\u0438\u044f \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0430"
+                },
+                "direction": {
+                    "type": "integer",
+                    "description": "0 - \u043f\u0440\u043e\u0434\u0430\u0436\u0430, 1 \u043f\u043e\u043a\u0443\u043f\u043a\u0430??"
+                },
+                "number": {
+                    "type": "string",
+                    "description": "\u041d\u043e\u043c\u0435\u0440 \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0430"
+                },
+                "currency": {
+                    "type": "string",
+                    "description": "\u0412\u0430\u043b\u044e\u0442\u0430 \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0430"
+                },
+                "total": {
+                    "type": "number",
+                    "description": "\u0421\u0443\u043c\u043c\u0430 \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0430"
+                },
+                "title": {
+                    "type": "string",
+                    "description": "\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435 \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0430"
+                },
+                "comment": {
+                    "type": "string",
+                    "description": "\u041a\u043e\u043c\u0435\u043d\u0442\u0430\u0440\u0438\u0439"
+                },
+                "id": {
+                    "type": "integer",
+                    "description": "\u0418\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440 \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0430"
+                },
+                "type": {
+                    "type": "string",
+                    "description": "\u0422\u0438\u043f \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0430"
+                },
+                "contractor": {
+                    "description": "\u041a\u043e\u043d\u0442\u0440\u0430\u0433\u0435\u043d\u0442",
+                    "allOf": [
+                        {
+                            "$ref": "#\/definitions\/Contractor"
+                        }
+                    ]
+                },
+                "paid": {
+                    "type": "number",
+                    "description": "\u041e\u043f\u043b\u0430\u0447\u0435\u043d\u043e \u043f\u043e \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0443"
+                },
+                "path": {
+                    "type": "string",
+                    "description": "URL \u0434\u043b\u044f \u043f\u043e\u043b\u0443\u0447\u0435\u043d\u0438\u044f \u043f\u043e\u043b\u043d\u043e\u0439 \u0438\u043d\u0444\u043e\u0440\u043c\u0430\u0446\u0438\u0438 \u043f\u043e \u043e\u043f\u0435\u0440\u0430\u0446\u0438\u0438"
+                }
+            },
+            "type": "object"
+        },
+        "Contractor": {
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "description": "\u0418\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440 \u0437\u0430\u043a\u0430\u0437\u0447\u0438\u043a\u0430"
+                },
+                "title": {
+                    "type": "string",
+                    "description": "\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435 \u0437\u0430\u043a\u0430\u0437\u0447\u0438\u043a\u0430"
+                }
+            },
+            "type": "object"
+        },
+        "DocumentContract": {
+            "properties": {
+                "date": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "\u0414\u0430\u0442\u0430 \u0441\u043e\u0437\u0434\u0430\u043d\u0438\u044f\/\u043f\u043e\u0434\u043f\u0438\u0441\u0430\u043d\u0438\u044f \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0430"
+                },
+                "direction": {
+                    "type": "integer",
+                    "description": "0 - \u043f\u0440\u043e\u0434\u0430\u0436\u0430, 1 \u043f\u043e\u043a\u0443\u043f\u043a\u0430??"
+                },
+                "number": {
+                    "type": "string",
+                    "description": "\u041d\u043e\u043c\u0435\u0440 \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0430"
+                },
+                "currency": {
+                    "type": "string",
+                    "description": "\u0412\u0430\u043b\u044e\u0442\u0430 \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0430"
+                },
+                "total": {
+                    "type": "number",
+                    "description": "\u0421\u0443\u043c\u043c\u0430 \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0430"
+                },
+                "title": {
+                    "type": "string",
+                    "description": "\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435 \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0430"
+                },
+                "comment": {
+                    "type": "string",
+                    "description": "\u041a\u043e\u043c\u0435\u043d\u0442\u0430\u0440\u0438\u0439"
+                },
+                "id": {
+                    "type": "integer",
+                    "description": "\u0418\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440 \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0430"
+                },
+                "type": {
+                    "type": "string",
+                    "description": "\u0422\u0438\u043f \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0430"
+                },
+                "contractor": {
+                    "description": "\u041a\u043e\u043d\u0442\u0440\u0430\u0433\u0435\u043d\u0442",
+                    "allOf": [
+                        {
+                            "$ref": "#\/definitions\/Contractor"
+                        }
+                    ]
+                },
+                "paid": {
+                    "type": "number",
+                    "description": "\u041e\u043f\u043b\u0430\u0447\u0435\u043d\u043e \u043f\u043e \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0443"
+                },
+                "expireDate": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "\u0414\u0430\u0442\u0430 \u043e\u043a\u043e\u043d\u0447\u0430\u043d\u0438\u044f \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044f \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0430"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435"
+                },
+                "place": {
+                    "type": "string",
+                    "description": "\u041c\u0435\u0441\u0442\u043e"
+                }
+            },
+            "type": "object"
+        },
+        "AddDocumentContract": {
+            "properties": {
+                "date": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "\u0414\u0430\u0442\u0430 \u0441\u043e\u0437\u0434\u0430\u043d\u0438\u044f\/\u043f\u043e\u0434\u043f\u0438\u0441\u0430\u043d\u0438\u044f \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0430"
+                },
+                "direction": {
+                    "type": "integer",
+                    "description": "0 - \u043f\u0440\u043e\u0434\u0430\u0436\u0430, 1 \u043f\u043e\u043a\u0443\u043f\u043a\u0430??"
+                },
+                "number": {
+                    "type": "string",
+                    "description": "\u041d\u043e\u043c\u0435\u0440 \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0430"
+                },
+                "currency": {
+                    "type": "string",
+                    "description": "\u0412\u0430\u043b\u044e\u0442\u0430 \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0430"
+                },
+                "total": {
+                    "type": "number",
+                    "description": "\u0421\u0443\u043c\u043c\u0430 \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0430"
+                },
+                "title": {
+                    "type": "string",
+                    "description": "\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435 \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0430"
+                },
+                "comment": {
+                    "type": "string",
+                    "description": "\u041a\u043e\u043c\u0435\u043d\u0442\u0430\u0440\u0438\u0439"
+                },
+                "contractor": {
+                    "description": "\u041a\u043e\u043d\u0442\u0440\u0430\u0433\u0435\u043d\u0442",
+                    "allOf": [
+                        {
+                            "$ref": "#\/definitions\/ContractorShort"
+                        }
+                    ]
+                },
+                "expireDate": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "\u0414\u0430\u0442\u0430 \u043e\u043a\u043e\u043d\u0447\u0430\u043d\u0438\u044f \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044f \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0430"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435"
+                },
+                "place": {
+                    "type": "string",
+                    "description": "\u041c\u0435\u0441\u0442\u043e"
+                }
+            },
+            "type": "object"
+        },
+        "ContractorShort": {
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "description": "\u0418\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440 \u0437\u0430\u043a\u0430\u0437\u0447\u0438\u043a\u0430"
+                }
+            },
+            "type": "object"
+        },
+        "AddDocumentResponse": {
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "description": "\u0418\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440 \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0430"
+                }
+            },
+            "type": "object"
+        },
+        "DocumentAct": {
+            "required": [
+                "contents"
+            ],
+            "properties": {
+                "date": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "\u0414\u0430\u0442\u0430 \u0441\u043e\u0437\u0434\u0430\u043d\u0438\u044f\/\u043f\u043e\u0434\u043f\u0438\u0441\u0430\u043d\u0438\u044f \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0430"
+                },
+                "direction": {
+                    "type": "integer",
+                    "description": "0 - \u043f\u0440\u043e\u0434\u0430\u0436\u0430, 1 \u043f\u043e\u043a\u0443\u043f\u043a\u0430??"
+                },
+                "number": {
+                    "type": "string",
+                    "description": "\u041d\u043e\u043c\u0435\u0440 \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0430"
+                },
+                "currency": {
+                    "type": "string",
+                    "description": "\u0412\u0430\u043b\u044e\u0442\u0430 \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0430"
+                },
+                "total": {
+                    "type": "number",
+                    "description": "\u0421\u0443\u043c\u043c\u0430 \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0430"
+                },
+                "title": {
+                    "type": "string",
+                    "description": "\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435 \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0430"
+                },
+                "comment": {
+                    "type": "string",
+                    "description": "\u041a\u043e\u043c\u0435\u043d\u0442\u0430\u0440\u0438\u0439"
+                },
+                "id": {
+                    "type": "integer",
+                    "description": "\u0418\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440 \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0430"
+                },
+                "type": {
+                    "type": "string",
+                    "description": "\u0422\u0438\u043f \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0430"
+                },
+                "contractor": {
+                    "description": "\u041a\u043e\u043d\u0442\u0440\u0430\u0433\u0435\u043d\u0442",
+                    "allOf": [
+                        {
+                            "$ref": "#\/definitions\/Contractor"
+                        }
+                    ]
+                },
+                "paid": {
+                    "type": "number",
+                    "description": "\u041e\u043f\u043b\u0430\u0447\u0435\u043d\u043e \u043f\u043e \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0443"
+                },
+                "nds": {
+                    "type": "integer",
+                    "description": "\u041d\u0414\u0421 (-1 - \u0411\u0435\u0437 \u041d\u0414\u0421)"
+                },
+                "actPlace": {
+                    "type": "string",
+                    "description": "\u041c\u0435\u0441\u0442\u043e"
+                },
+                "actType": {
+                    "type": "string",
+                    "description": "actType"
+                },
+                "actPrintType": {
+                    "type": "string",
+                    "description": "actPrintType"
+                },
+                "isForeign": {
+                    "type": "integer",
+                    "description": "isForeign"
+                },
+                "contents": {
+                    "type": "array",
+                    "description": "\u0421\u043e\u0434\u0435\u0440\u0436\u0430\u043d\u0438\u0435",
+                    "minItems": 1,
+                    "items": {
+                        "$ref": "#\/definitions\/ActContent"
+                    }
+                },
+                "account": {
+                    "description": "\u0421\u0447\u0435\u0442",
+                    "allOf": [
+                        {
+                            "$ref": "#\/definitions\/UserBankAccountBrief"
+                        }
+                    ]
+                },
+                "parent": {
+                    "description": "\u0414\u043e\u0433\u043e\u0432\u043e\u0440",
+                    "allOf": [
+                        {
+                            "$ref": "#\/definitions\/Parent"
+                        }
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "ActContent": {
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "description": "\u0418\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440 \u0437\u0430\u043f\u0438\u0441\u0438"
+                },
+                "title": {
+                    "type": "string",
+                    "description": "\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435"
+                },
+                "titleTf": {
+                    "type": "string",
+                    "description": "\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u04352"
+                },
+                "measure": {
+                    "type": "string",
+                    "description": "\u0415\u0434\u0435\u043d\u0438\u0446\u0430 \u0438\u0437\u043c\u0435\u0440\u0435\u043d\u0438\u044f"
+                },
+                "measureTf": {
+                    "type": "string",
+                    "description": "\u0415\u0434\u0435\u043d\u0438\u0446\u0430 \u0438\u0437\u043c\u0435\u0440\u0435\u043d\u0438\u044f2"
+                },
+                "quantity": {
+                    "type": "integer",
+                    "description": "\u041a\u043e\u043b\u0438\u0447\u0435\u0441\u0442\u0432\u043e"
+                },
+                "price": {
+                    "type": "number",
+                    "description": "\u0426\u0435\u043d\u0430"
+                }
+            },
+            "type": "object"
+        },
+        "UserBankAccountBrief": {
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "description": "\u0418\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440 \u0441\u0447\u0435\u0442\u0430"
+                },
+                "title": {
+                    "type": "string",
+                    "description": "\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435 \u0441\u0447\u0435\u0442\u0430"
+                },
+                "currency": {
+                    "type": "string",
+                    "description": "\u0412\u0430\u043b\u043e\u044e\u0442\u0430 \u0441\u0447\u0435\u0442\u0430"
+                }
+            },
+            "type": "object"
+        },
+        "Parent": {
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "description": "\u0418\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440"
+                },
+                "date": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "\u0414\u0430\u0442\u0430"
+                },
+                "number": {
+                    "type": "string",
+                    "description": "\u041d\u043e\u043c\u0435\u0440"
+                },
+                "title": {
+                    "type": "string",
+                    "description": "\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435"
+                },
+                "type": {
+                    "type": "string",
+                    "description": "\u0422\u0438\u043f"
+                },
+                "contractor": {
+                    "description": "\u041a\u043e\u043d\u0442\u0440\u0430\u0433\u0435\u043d\u0442",
+                    "allOf": [
+                        {
+                            "$ref": "#\/definitions\/Contractor"
+                        }
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "AddDocumentAct": {
+            "required": [
+                "contents"
+            ],
+            "properties": {
+                "date": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "\u0414\u0430\u0442\u0430 \u0441\u043e\u0437\u0434\u0430\u043d\u0438\u044f\/\u043f\u043e\u0434\u043f\u0438\u0441\u0430\u043d\u0438\u044f \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0430"
+                },
+                "direction": {
+                    "type": "integer",
+                    "description": "0 - \u043f\u0440\u043e\u0434\u0430\u0436\u0430, 1 \u043f\u043e\u043a\u0443\u043f\u043a\u0430??"
+                },
+                "number": {
+                    "type": "string",
+                    "description": "\u041d\u043e\u043c\u0435\u0440 \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0430"
+                },
+                "currency": {
+                    "type": "string",
+                    "description": "\u0412\u0430\u043b\u044e\u0442\u0430 \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0430"
+                },
+                "total": {
+                    "type": "number",
+                    "description": "\u0421\u0443\u043c\u043c\u0430 \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0430"
+                },
+                "title": {
+                    "type": "string",
+                    "description": "\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435 \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0430"
+                },
+                "comment": {
+                    "type": "string",
+                    "description": "\u041a\u043e\u043c\u0435\u043d\u0442\u0430\u0440\u0438\u0439"
+                },
+                "contractor": {
+                    "description": "\u041a\u043e\u043d\u0442\u0440\u0430\u0433\u0435\u043d\u0442",
+                    "allOf": [
+                        {
+                            "$ref": "#\/definitions\/ContractorShort"
+                        }
+                    ]
+                },
+                "nds": {
+                    "type": "integer",
+                    "description": "\u041d\u0414\u0421 (-1 - \u0411\u0435\u0437 \u041d\u0414\u0421)"
+                },
+                "actPlace": {
+                    "type": "string",
+                    "description": "\u041c\u0435\u0441\u0442\u043e"
+                },
+                "actType": {
+                    "type": "string",
+                    "description": "actType"
+                },
+                "actPrintType": {
+                    "type": "string",
+                    "description": "actPrintType"
+                },
+                "isForeign": {
+                    "type": "integer",
+                    "description": "isForeign"
+                },
+                "contents": {
+                    "type": "array",
+                    "description": "\u0421\u043e\u0434\u0435\u0440\u0436\u0430\u043d\u0438\u0435",
+                    "minItems": 1,
+                    "items": {
+                        "$ref": "#\/definitions\/ActContent"
+                    }
+                },
+                "account": {
+                    "description": "\u0421\u0447\u0435\u0442",
+                    "allOf": [
+                        {
+                            "$ref": "#\/definitions\/UserBankAccountShort"
+                        }
+                    ]
+                },
+                "parent": {
+                    "description": "\u0414\u043e\u0433\u043e\u0432\u043e\u0440",
+                    "allOf": [
+                        {
+                            "$ref": "#\/definitions\/ParentShortType"
+                        }
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "UserBankAccountShort": {
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "description": "\u0418\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440 \u0441\u0447\u0435\u0442\u0430"
+                }
+            },
+            "type": "object"
+        },
+        "ParentShortType": {
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "description": "\u0418\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440"
+                },
+                "type": {
+                    "type": "string",
+                    "description": "\u0422\u0438\u043f"
+                }
+            },
+            "type": "object"
+        },
+        "OperationBrief": {
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "description": "\u0418\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440 \u043e\u043f\u0435\u0440\u0430\u0446\u0438\u0438"
+                },
+                "type": {
+                    "type": "string",
+                    "description": "\u0422\u0438\u043f"
+                },
+                "path": {
+                    "type": "string",
+                    "description": "URL \u0434\u043b\u044f \u043f\u043e\u043b\u0443\u0447\u0435\u043d\u0438\u044f \u043f\u043e\u043b\u043d\u043e\u0439 \u0438\u043d\u0444\u043e\u0440\u043c\u0430\u0446\u0438\u0438 \u043f\u043e \u043e\u043f\u0435\u0440\u0430\u0446\u0438\u0438"
+                },
+                "comment": {
+                    "type": "string",
+                    "description": "\u041a\u043e\u043c\u0435\u043d\u0442\u0430\u0440\u0438\u0439"
+                },
+                "contents": {
+                    "type": "array",
+                    "description": "\u0414\u0430\u043d\u043d\u044b\u0435",
+                    "items": {
+                        "$ref": "#\/definitions\/OperationBriefContent"
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "OperationBriefContent": {
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "description": "\u0418\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440"
+                },
+                "date": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "\u0414\u0430\u0442\u0430"
+                },
+                "sumCurrency": {
+                    "type": "number",
+                    "description": "\u0421\u0443\u043c\u043c\u0430 \u0432 \u0432\u0430\u043b\u044e\u0442\u0435"
+                },
+                "accountTitle": {
+                    "type": "string",
+                    "description": "\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435 \u043f\u0440\u043e\u0444\u0438\u043b\u044f"
+                },
+                "accountCurrency": {
+                    "type": "string",
+                    "description": "\u0412\u0430\u043b\u044e\u0442\u0430 \u043f\u0440\u043e\u0444\u0438\u043b\u044f"
+                },
+                "comment": {
+                    "type": "string",
+                    "description": "\u041a\u043e\u043c\u0435\u043d\u0442\u0430\u0440\u0438\u0439"
+                }
+            },
+            "type": "object"
+        },
+        "OperationsBrief": {
+            "properties": {
+                "paginator": {
+                    "description": "\u0421\u0442\u0440\u0430\u043d\u0438\u0446\u044b",
+                    "allOf": [
+                        {
+                            "$ref": "#\/definitions\/Paginator"
+                        }
+                    ]
+                },
+                "currencies": {
+                    "type": "array",
+                    "description": "\u0412\u0430\u043b\u044e\u0442\u044b",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "operations": {
+                    "type": "array",
+                    "description": "\u041e\u043f\u0435\u0440\u0430\u0446\u0438\u0438",
+                    "items": {
+                        "$ref": "#\/definitions\/OperationBrief"
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "OperationWithdrawal": {
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "description": "\u0418\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440 \u043e\u043f\u0435\u0440\u0430\u0446\u0438\u0438"
+                },
+                "date": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "\u0414\u0430\u0442\u0430"
+                },
+                "comment": {
+                    "type": "string",
+                    "description": "\u041a\u043e\u043c\u0435\u043d\u0442\u0430\u0440\u0438\u0439"
+                },
+                "outgoTotal": {
+                    "type": "number",
+                    "description": "\u0421\u0443\u043c\u043c\u0430 \u043f\u0435\u0440\u0435\u0432\u043e\u0434\u0430"
+                },
+                "outgoAccount": {
+                    "description": "\u0421\u0447\u0435\u0442 \u0441\u043f\u0438\u0441\u0430\u043d\u0438\u044f",
+                    "allOf": [
+                        {
+                            "$ref": "#\/definitions\/UserBankAccountBrief"
+                        }
+                    ]
+                },
+                "incomeAccount": {
+                    "description": "\u0421\u0447\u0435\u0442 \u0437\u0430\u0447\u0438\u0441\u043b\u0435\u043d\u0438\u044f",
+                    "allOf": [
+                        {
+                            "$ref": "#\/definitions\/UserBankAccountBrief"
+                        }
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "AddOperationWithdrawal": {
+            "properties": {
+                "date": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "\u0414\u0430\u0442\u0430"
+                },
+                "comment": {
+                    "type": "string",
+                    "description": "\u041a\u043e\u043c\u0435\u043d\u0442\u0430\u0440\u0438\u0439"
+                },
+                "outgoTotal": {
+                    "type": "number",
+                    "description": "\u0421\u0443\u043c\u043c\u0430 \u043f\u0435\u0440\u0435\u0432\u043e\u0434\u0430"
+                },
+                "outgoAccount": {
+                    "description": "\u0421\u0447\u0435\u0442 \u0441\u043f\u0438\u0441\u0430\u043d\u0438\u044f",
+                    "allOf": [
+                        {
+                            "$ref": "#\/definitions\/UserBankAccountShort"
+                        }
+                    ]
+                },
+                "incomeAccount": {
+                    "description": "\u0421\u0447\u0435\u0442 \u0437\u0430\u0447\u0438\u0441\u043b\u0435\u043d\u0438\u044f",
+                    "allOf": [
+                        {
+                            "$ref": "#\/definitions\/UserBankAccountShort"
+                        }
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "AddOperationResponse": {
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "description": "\u0418\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440 \u043e\u043f\u0435\u0440\u0430\u0446\u0438\u0438"
+                }
+            },
+            "type": "object"
+        },
+        "OperationFlowOutgo": {
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "description": "\u0418\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440 \u043e\u043f\u0435\u0440\u0430\u0446\u0438\u0438"
+                },
+                "date": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "\u0414\u0430\u0442\u0430"
+                },
+                "comment": {
+                    "type": "string",
+                    "description": "\u041a\u043e\u043c\u0435\u043d\u0442\u0430\u0440\u0438\u0439"
+                },
+                "financeType": {
+                    "type": "string",
+                    "description": "\u0422\u0438\u043f \u0434\u043e\u0445\u043e\u0434\u0430 (\"custom\" - \u041e\u0441\u043d\u043e\u0432\u043d\u043e\u0439; \"custom_free\" - \u0411\u0435\u0437\u0432\u043e\u0437\u043c\u0435\u0437\u0434\u043d\u043e \u043f\u043e\u043b\u0443\u0447\u0435\u043d\u043d\u044b\u0435 \u0442\u043e\u0432\u0430\u0440\u044b \u0438 \u0443\u0441\u043b\u0443\u0433\u0438; \"tax_free\" - \u041d\u0435 \u0443\u0447\u0438\u0442\u044b\u0432\u0430\u0435\u043c\u044b\u0439; \"custom_debts\" - \u0421\u043f\u0438\u0441\u0430\u043d\u043d\u044b\u0435 \u0437\u0430\u0434\u043e\u043b\u0436\u0435\u043d\u043e\u0441\u0442\u0438; \"tax15_1\" - 15% \u041f\u0440\u0435\u0432\u044b\u0448\u0435\u043d\u0438\u0435 \u043e\u0441\u043d\u043e\u0432\u043d\u043e\u0433\u043e \u0434\u043e\u0445\u043e\u0434\u0430; \"tax15_2\" - 15% \u041d\u0435 \u0443\u043a\u0430\u0437\u0430\u043d\u043d\u0430\u044f \u0432 \u0441\u0432\u0438\u0434\u0435\u0442\u0435\u043b\u044c\u0441\u0442\u0432\u0435 \u0434\u0435\u044f\u0442\u0435\u043b\u044c\u043d\u043e\u0441\u0442\u044c; \"tax15_2\" - 15% \u0417\u0430\u043f\u0440\u0435\u0449\u0435\u043d\u043d\u044b\u0435 \u0434\u043b\u044f \u0415\u041d \u0440\u0430\u0441\u0447\u0435\u0442\u044b)<br>\u0438\u043b\u0438 <br>\u0422\u0438\u043f \u0440\u0430\u0441\u0445\u043e\u0434\u0430 (\"custom\" - \u041e\u0441\u043d\u043e\u0432\u043d\u043e\u0439; \"esv\" - \u041e\u043f\u043b\u0430\u0442\u0430 \u0415\u0421\u0412; \"en\" - \u041e\u043f\u043b\u0430\u0442\u0430 \u0415\u041d; \"moneyback\" - \u0412\u043e\u0437\u0432\u0440\u0430\u0449\u0435\u043d\u043d\u044b\u0435 \u0434\u0435\u043d\u044c\u0433\u0438)"
+                },
+                "total": {
+                    "type": "number",
+                    "description": "\u0421\u0443\u043c\u043c\u0430 \u043f\u0435\u0440\u0435\u0432\u043e\u0434\u0430"
+                },
+                "payedSum": {
+                    "type": "number",
+                    "description": "\u0421\u0443\u043c\u043c\u0430 \u043f\u043e \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0443"
+                },
+                "account": {
+                    "description": "\u0421\u0447\u0435\u0442 \u0437\u0430\u0447\u0438\u0441\u043b\u0435\u043d\u0438\u044f",
+                    "allOf": [
+                        {
+                            "$ref": "#\/definitions\/UserBankAccountBrief"
+                        }
+                    ]
+                },
+                "contractor": {
+                    "description": "\u041a\u043e\u043d\u0442\u0440\u0430\u0433\u0435\u043d\u0442",
+                    "allOf": [
+                        {
+                            "$ref": "#\/definitions\/Contractor"
+                        }
+                    ]
+                },
+                "parent": {
+                    "description": "\u0414\u043e\u0433\u043e\u0432\u043e\u0440",
+                    "allOf": [
+                        {
+                            "$ref": "#\/definitions\/Parent"
+                        }
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "AddOperationFlowOutgo": {
+            "properties": {
+                "date": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "\u0414\u0430\u0442\u0430"
+                },
+                "comment": {
+                    "type": "string",
+                    "description": "\u041a\u043e\u043c\u0435\u043d\u0442\u0430\u0440\u0438\u0439"
+                },
+                "financeType": {
+                    "type": "string",
+                    "description": "\u0422\u0438\u043f \u0434\u043e\u0445\u043e\u0434\u0430 (\"custom\" - \u041e\u0441\u043d\u043e\u0432\u043d\u043e\u0439; \"custom_free\" - \u0411\u0435\u0437\u0432\u043e\u0437\u043c\u0435\u0437\u0434\u043d\u043e \u043f\u043e\u043b\u0443\u0447\u0435\u043d\u043d\u044b\u0435 \u0442\u043e\u0432\u0430\u0440\u044b \u0438 \u0443\u0441\u043b\u0443\u0433\u0438; \"tax_free\" - \u041d\u0435 \u0443\u0447\u0438\u0442\u044b\u0432\u0430\u0435\u043c\u044b\u0439; \"custom_debts\" - \u0421\u043f\u0438\u0441\u0430\u043d\u043d\u044b\u0435 \u0437\u0430\u0434\u043e\u043b\u0436\u0435\u043d\u043e\u0441\u0442\u0438; \"tax15_1\" - 15% \u041f\u0440\u0435\u0432\u044b\u0448\u0435\u043d\u0438\u0435 \u043e\u0441\u043d\u043e\u0432\u043d\u043e\u0433\u043e \u0434\u043e\u0445\u043e\u0434\u0430; \"tax15_2\" - 15% \u041d\u0435 \u0443\u043a\u0430\u0437\u0430\u043d\u043d\u0430\u044f \u0432 \u0441\u0432\u0438\u0434\u0435\u0442\u0435\u043b\u044c\u0441\u0442\u0432\u0435 \u0434\u0435\u044f\u0442\u0435\u043b\u044c\u043d\u043e\u0441\u0442\u044c; \"tax15_2\" - 15% \u0417\u0430\u043f\u0440\u0435\u0449\u0435\u043d\u043d\u044b\u0435 \u0434\u043b\u044f \u0415\u041d \u0440\u0430\u0441\u0447\u0435\u0442\u044b)<br>\u0438\u043b\u0438 <br>\u0422\u0438\u043f \u0440\u0430\u0441\u0445\u043e\u0434\u0430 (\"custom\" - \u041e\u0441\u043d\u043e\u0432\u043d\u043e\u0439; \"esv\" - \u041e\u043f\u043b\u0430\u0442\u0430 \u0415\u0421\u0412; \"en\" - \u041e\u043f\u043b\u0430\u0442\u0430 \u0415\u041d; \"moneyback\" - \u0412\u043e\u0437\u0432\u0440\u0430\u0449\u0435\u043d\u043d\u044b\u0435 \u0434\u0435\u043d\u044c\u0433\u0438)"
+                },
+                "total": {
+                    "type": "number",
+                    "description": "\u0421\u0443\u043c\u043c\u0430 \u043f\u0435\u0440\u0435\u0432\u043e\u0434\u0430"
+                },
+                "payedSum": {
+                    "type": "number",
+                    "description": "\u0421\u0443\u043c\u043c\u0430 \u043f\u043e \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0443"
+                },
+                "account": {
+                    "description": "\u0421\u0447\u0435\u0442 \u0437\u0430\u0447\u0438\u0441\u043b\u0435\u043d\u0438\u044f",
+                    "allOf": [
+                        {
+                            "$ref": "#\/definitions\/UserBankAccountShort"
+                        }
+                    ]
+                },
+                "contractor": {
+                    "description": "\u041a\u043e\u043d\u0442\u0440\u0430\u0433\u0435\u043d\u0442",
+                    "allOf": [
+                        {
+                            "$ref": "#\/definitions\/ContractorShort"
+                        }
+                    ]
+                },
+                "parent": {
+                    "description": "\u0414\u043e\u0433\u043e\u0432\u043e\u0440",
+                    "allOf": [
+                        {
+                            "$ref": "#\/definitions\/ParentShortType"
+                        }
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "OperationFlowIncome": {
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "description": "\u0418\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440 \u043e\u043f\u0435\u0440\u0430\u0446\u0438\u0438"
+                },
+                "date": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "\u0414\u0430\u0442\u0430"
+                },
+                "comment": {
+                    "type": "string",
+                    "description": "\u041a\u043e\u043c\u0435\u043d\u0442\u0430\u0440\u0438\u0439"
+                },
+                "financeType": {
+                    "type": "string",
+                    "description": "\u0422\u0438\u043f \u0434\u043e\u0445\u043e\u0434\u0430 (\"custom\" - \u041e\u0441\u043d\u043e\u0432\u043d\u043e\u0439; \"custom_free\" - \u0411\u0435\u0437\u0432\u043e\u0437\u043c\u0435\u0437\u0434\u043d\u043e \u043f\u043e\u043b\u0443\u0447\u0435\u043d\u043d\u044b\u0435 \u0442\u043e\u0432\u0430\u0440\u044b \u0438 \u0443\u0441\u043b\u0443\u0433\u0438; \"tax_free\" - \u041d\u0435 \u0443\u0447\u0438\u0442\u044b\u0432\u0430\u0435\u043c\u044b\u0439; \"custom_debts\" - \u0421\u043f\u0438\u0441\u0430\u043d\u043d\u044b\u0435 \u0437\u0430\u0434\u043e\u043b\u0436\u0435\u043d\u043e\u0441\u0442\u0438; \"tax15_1\" - 15% \u041f\u0440\u0435\u0432\u044b\u0448\u0435\u043d\u0438\u0435 \u043e\u0441\u043d\u043e\u0432\u043d\u043e\u0433\u043e \u0434\u043e\u0445\u043e\u0434\u0430; \"tax15_2\" - 15% \u041d\u0435 \u0443\u043a\u0430\u0437\u0430\u043d\u043d\u0430\u044f \u0432 \u0441\u0432\u0438\u0434\u0435\u0442\u0435\u043b\u044c\u0441\u0442\u0432\u0435 \u0434\u0435\u044f\u0442\u0435\u043b\u044c\u043d\u043e\u0441\u0442\u044c; \"tax15_2\" - 15% \u0417\u0430\u043f\u0440\u0435\u0449\u0435\u043d\u043d\u044b\u0435 \u0434\u043b\u044f \u0415\u041d \u0440\u0430\u0441\u0447\u0435\u0442\u044b)<br>\u0438\u043b\u0438 <br>\u0422\u0438\u043f \u0440\u0430\u0441\u0445\u043e\u0434\u0430 (\"custom\" - \u041e\u0441\u043d\u043e\u0432\u043d\u043e\u0439; \"esv\" - \u041e\u043f\u043b\u0430\u0442\u0430 \u0415\u0421\u0412; \"en\" - \u041e\u043f\u043b\u0430\u0442\u0430 \u0415\u041d; \"moneyback\" - \u0412\u043e\u0437\u0432\u0440\u0430\u0449\u0435\u043d\u043d\u044b\u0435 \u0434\u0435\u043d\u044c\u0433\u0438)"
+                },
+                "total": {
+                    "type": "number",
+                    "description": "\u0421\u0443\u043c\u043c\u0430 \u043f\u0435\u0440\u0435\u0432\u043e\u0434\u0430"
+                },
+                "payedSum": {
+                    "type": "number",
+                    "description": "\u0421\u0443\u043c\u043c\u0430 \u043f\u043e \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0443"
+                },
+                "account": {
+                    "description": "\u0421\u0447\u0435\u0442 \u0437\u0430\u0447\u0438\u0441\u043b\u0435\u043d\u0438\u044f",
+                    "allOf": [
+                        {
+                            "$ref": "#\/definitions\/UserBankAccountBrief"
+                        }
+                    ]
+                },
+                "contractor": {
+                    "description": "\u041a\u043e\u043d\u0442\u0440\u0430\u0433\u0435\u043d\u0442",
+                    "allOf": [
+                        {
+                            "$ref": "#\/definitions\/Contractor"
+                        }
+                    ]
+                },
+                "parent": {
+                    "description": "\u0414\u043e\u0433\u043e\u0432\u043e\u0440",
+                    "allOf": [
+                        {
+                            "$ref": "#\/definitions\/Parent"
+                        }
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "AddOperationFlowIncome": {
+            "properties": {
+                "date": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "\u0414\u0430\u0442\u0430"
+                },
+                "comment": {
+                    "type": "string",
+                    "description": "\u041a\u043e\u043c\u0435\u043d\u0442\u0430\u0440\u0438\u0439"
+                },
+                "financeType": {
+                    "type": "string",
+                    "description": "\u0422\u0438\u043f \u0434\u043e\u0445\u043e\u0434\u0430 (\"custom\" - \u041e\u0441\u043d\u043e\u0432\u043d\u043e\u0439; \"custom_free\" - \u0411\u0435\u0437\u0432\u043e\u0437\u043c\u0435\u0437\u0434\u043d\u043e \u043f\u043e\u043b\u0443\u0447\u0435\u043d\u043d\u044b\u0435 \u0442\u043e\u0432\u0430\u0440\u044b \u0438 \u0443\u0441\u043b\u0443\u0433\u0438; \"tax_free\" - \u041d\u0435 \u0443\u0447\u0438\u0442\u044b\u0432\u0430\u0435\u043c\u044b\u0439; \"custom_debts\" - \u0421\u043f\u0438\u0441\u0430\u043d\u043d\u044b\u0435 \u0437\u0430\u0434\u043e\u043b\u0436\u0435\u043d\u043e\u0441\u0442\u0438; \"tax15_1\" - 15% \u041f\u0440\u0435\u0432\u044b\u0448\u0435\u043d\u0438\u0435 \u043e\u0441\u043d\u043e\u0432\u043d\u043e\u0433\u043e \u0434\u043e\u0445\u043e\u0434\u0430; \"tax15_2\" - 15% \u041d\u0435 \u0443\u043a\u0430\u0437\u0430\u043d\u043d\u0430\u044f \u0432 \u0441\u0432\u0438\u0434\u0435\u0442\u0435\u043b\u044c\u0441\u0442\u0432\u0435 \u0434\u0435\u044f\u0442\u0435\u043b\u044c\u043d\u043e\u0441\u0442\u044c; \"tax15_2\" - 15% \u0417\u0430\u043f\u0440\u0435\u0449\u0435\u043d\u043d\u044b\u0435 \u0434\u043b\u044f \u0415\u041d \u0440\u0430\u0441\u0447\u0435\u0442\u044b)<br>\u0438\u043b\u0438 <br>\u0422\u0438\u043f \u0440\u0430\u0441\u0445\u043e\u0434\u0430 (\"custom\" - \u041e\u0441\u043d\u043e\u0432\u043d\u043e\u0439; \"esv\" - \u041e\u043f\u043b\u0430\u0442\u0430 \u0415\u0421\u0412; \"en\" - \u041e\u043f\u043b\u0430\u0442\u0430 \u0415\u041d; \"moneyback\" - \u0412\u043e\u0437\u0432\u0440\u0430\u0449\u0435\u043d\u043d\u044b\u0435 \u0434\u0435\u043d\u044c\u0433\u0438)"
+                },
+                "total": {
+                    "type": "number",
+                    "description": "\u0421\u0443\u043c\u043c\u0430 \u043f\u0435\u0440\u0435\u0432\u043e\u0434\u0430"
+                },
+                "payedSum": {
+                    "type": "number",
+                    "description": "\u0421\u0443\u043c\u043c\u0430 \u043f\u043e \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0443"
+                },
+                "account": {
+                    "description": "\u0421\u0447\u0435\u0442 \u0437\u0430\u0447\u0438\u0441\u043b\u0435\u043d\u0438\u044f",
+                    "allOf": [
+                        {
+                            "$ref": "#\/definitions\/UserBankAccountShort"
+                        }
+                    ]
+                },
+                "contractor": {
+                    "description": "\u041a\u043e\u043d\u0442\u0440\u0430\u0433\u0435\u043d\u0442",
+                    "allOf": [
+                        {
+                            "$ref": "#\/definitions\/ContractorShort"
+                        }
+                    ]
+                },
+                "parent": {
+                    "description": "\u0414\u043e\u0433\u043e\u0432\u043e\u0440",
+                    "allOf": [
+                        {
+                            "$ref": "#\/definitions\/ParentShortType"
+                        }
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "CurrencyExchange": {
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "description": "\u0418\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440 \u043e\u043f\u0435\u0440\u0430\u0446\u0438\u0438"
+                },
+                "date": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "\u0414\u0430\u0442\u0430"
+                },
+                "comment": {
+                    "type": "string",
+                    "description": "\u041a\u043e\u043c\u0435\u043d\u0442\u0430\u0440\u0438\u0439"
+                },
+                "outgoTotal": {
+                    "type": "number",
+                    "description": "\u0421\u0443\u043c\u043c\u0430 \u043f\u0435\u0440\u0435\u0432\u043e\u0434\u0430"
+                },
+                "outgoAccount": {
+                    "description": "\u0421\u0447\u0435\u0442 \u0441\u043f\u0438\u0441\u0430\u043d\u0438\u044f",
+                    "allOf": [
+                        {
+                            "$ref": "#\/definitions\/UserBankAccountBrief"
+                        }
+                    ]
+                },
+                "incomeAccount": {
+                    "description": "\u0421\u0447\u0435\u0442 \u0437\u0430\u0447\u0438\u0441\u043b\u0435\u043d\u0438\u044f",
+                    "allOf": [
+                        {
+                            "$ref": "#\/definitions\/UserBankAccountBrief"
+                        }
+                    ]
+                },
+                "total": {
+                    "type": "number",
+                    "description": "\u0421\u0443\u043c\u043c\u0430"
+                },
+                "incomeCurrency": {
+                    "type": "number",
+                    "description": "\u041a\u0443\u0440\u0441"
+                },
+                "exchangeDifferenceAmount": {
+                    "type": "number",
+                    "description": "\u041a\u0443\u0440\u0441\u043e\u0432\u0430\u044f \u0440\u0430\u0437\u043d\u0438\u0446\u0430"
+                }
+            },
+            "type": "object"
+        },
+        "AddCurrencyExchange": {
+            "properties": {
+                "date": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "\u0414\u0430\u0442\u0430"
+                },
+                "comment": {
+                    "type": "string",
+                    "description": "\u041a\u043e\u043c\u0435\u043d\u0442\u0430\u0440\u0438\u0439"
+                },
+                "outgoTotal": {
+                    "type": "number",
+                    "description": "\u0421\u0443\u043c\u043c\u0430 \u043f\u0435\u0440\u0435\u0432\u043e\u0434\u0430"
+                },
+                "outgoAccount": {
+                    "description": "\u0421\u0447\u0435\u0442 \u0441\u043f\u0438\u0441\u0430\u043d\u0438\u044f",
+                    "allOf": [
+                        {
+                            "$ref": "#\/definitions\/UserBankAccountShort"
+                        }
+                    ]
+                },
+                "incomeAccount": {
+                    "description": "\u0421\u0447\u0435\u0442 \u0437\u0430\u0447\u0438\u0441\u043b\u0435\u043d\u0438\u044f",
+                    "allOf": [
+                        {
+                            "$ref": "#\/definitions\/UserBankAccountShort"
+                        }
+                    ]
+                },
+                "incomeCurrency": {
+                    "type": "number",
+                    "description": "\u041a\u0443\u0440\u0441"
+                }
+            },
+            "type": "object"
+        },
+        "AutoExchange": {
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "description": "\u0418\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440 \u043e\u043f\u0435\u0440\u0430\u0446\u0438\u0438"
+                },
+                "date": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "\u0414\u0430\u0442\u0430"
+                },
+                "comment": {
+                    "type": "string",
+                    "description": "\u041a\u043e\u043c\u0435\u043d\u0442\u0430\u0440\u0438\u0439"
+                },
+                "payedSum": {
+                    "type": "number",
+                    "description": "\u0421\u0443\u043c\u043c\u0430 \u043f\u043e \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0443"
+                },
+                "uahDate": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "\u0414\u0430\u0442\u0430 \u043e\u0431\u044f\u0437\u0430\u0442\u0435\u043b\u044c\u043d\u043e\u0439 \u043f\u0440\u043e\u0434\u0430\u0436\u0438"
+                },
+                "uahTotal": {
+                    "type": "number",
+                    "description": "\u0421\u0443\u043c\u043c\u0430 \u0432 UAH \u043e\u0431\u044f\u0437\u0430\u0442\u0435\u043b\u044c\u043d\u043e\u0439 \u043f\u0440\u043e\u0434\u0430\u0436\u0438"
+                },
+                "currencyTotal": {
+                    "type": "number",
+                    "description": "\u0421\u0443\u043c\u043c\u0430 \u0437\u0430\u0448\u0435\u0434\u0448\u0430\u044f \u043d\u0430 \u0432\u0430\u043b\u044e\u0442\u043d\u044b\u0439 \u0441\u0447\u0435\u0442"
+                },
+                "parent": {
+                    "description": "\u0414\u043e\u0433\u043e\u0432\u043e\u0440",
+                    "allOf": [
+                        {
+                            "$ref": "#\/definitions\/Parent"
+                        }
+                    ]
+                },
+                "contractor": {
+                    "description": "\u041a\u043e\u043d\u0442\u0440\u0430\u0433\u0435\u043d\u0442",
+                    "allOf": [
+                        {
+                            "$ref": "#\/definitions\/Contractor"
+                        }
+                    ]
+                },
+                "uahAccount": {
+                    "description": "\u0421\u0447\u0435\u0442 \u0437\u0430\u0447\u0438\u0441\u043b\u0435\u043d\u0438\u044f \u043f\u0440\u0438 \u043e\u0431\u044f\u0437\u0430\u0442\u0435\u043b\u044c\u043d\u043e\u0439 \u043f\u0440\u043e\u0434\u0430\u0436\u0435",
+                    "allOf": [
+                        {
+                            "$ref": "#\/definitions\/UserBankAccountBrief"
+                        }
+                    ]
+                },
+                "currencyAccount": {
+                    "description": "\u0412\u0430\u043b\u044e\u0442\u043d\u044b\u0439 \u0441\u0447\u0435\u0442",
+                    "allOf": [
+                        {
+                            "$ref": "#\/definitions\/UserBankAccountBrief"
+                        }
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "AddAutoExchange": {
+            "properties": {
+                "date": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "\u0414\u0430\u0442\u0430"
+                },
+                "comment": {
+                    "type": "string",
+                    "description": "\u041a\u043e\u043c\u0435\u043d\u0442\u0430\u0440\u0438\u0439"
+                },
+                "payedSum": {
+                    "type": "number",
+                    "description": "\u0421\u0443\u043c\u043c\u0430 \u043f\u043e \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0443"
+                },
+                "uahDate": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "\u0414\u0430\u0442\u0430 \u043e\u0431\u044f\u0437\u0430\u0442\u0435\u043b\u044c\u043d\u043e\u0439 \u043f\u0440\u043e\u0434\u0430\u0436\u0438"
+                },
+                "uahTotal": {
+                    "type": "number",
+                    "description": "\u0421\u0443\u043c\u043c\u0430 \u0432 UAH \u043e\u0431\u044f\u0437\u0430\u0442\u0435\u043b\u044c\u043d\u043e\u0439 \u043f\u0440\u043e\u0434\u0430\u0436\u0438"
+                },
+                "currencyTotal": {
+                    "type": "number",
+                    "description": "\u0421\u0443\u043c\u043c\u0430 \u0437\u0430\u0448\u0435\u0434\u0448\u0430\u044f \u043d\u0430 \u0432\u0430\u043b\u044e\u0442\u043d\u044b\u0439 \u0441\u0447\u0435\u0442"
+                },
+                "parent": {
+                    "description": "\u0414\u043e\u0433\u043e\u0432\u043e\u0440",
+                    "allOf": [
+                        {
+                            "$ref": "#\/definitions\/ParentShortType"
+                        }
+                    ]
+                },
+                "contractor": {
+                    "description": "\u041a\u043e\u043d\u0442\u0440\u0430\u0433\u0435\u043d\u0442",
+                    "allOf": [
+                        {
+                            "$ref": "#\/definitions\/ContractorShort"
+                        }
+                    ]
+                },
+                "uahAccount": {
+                    "description": "\u0421\u0447\u0435\u0442 \u0437\u0430\u0447\u0438\u0441\u043b\u0435\u043d\u0438\u044f \u043f\u0440\u0438 \u043e\u0431\u044f\u0437\u0430\u0442\u0435\u043b\u044c\u043d\u043e\u0439 \u043f\u0440\u043e\u0434\u0430\u0436\u0435",
+                    "allOf": [
+                        {
+                            "$ref": "#\/definitions\/UserBankAccountShort"
+                        }
+                    ]
+                },
+                "currencyAccount": {
+                    "description": "\u0412\u0430\u043b\u044e\u0442\u043d\u044b\u0439 \u0441\u0447\u0435\u0442",
+                    "allOf": [
+                        {
+                            "$ref": "#\/definitions\/UserBankAccountShort"
+                        }
+                    ]
+                }
+            },
+            "type": "object"
+        }
+    },
+    "responses": {
+        "ParseError": {
+            "description": "When a mask can't be parsed"
+        },
+        "MaskError": {
+            "description": "When any error occurs on mask"
+        }
+    }
+}

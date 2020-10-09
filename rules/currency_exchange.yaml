@@ -1,0 +1,36 @@
+id: ОбменВалюты
+operation-type: |
+  'CurrencyExchange'
+condition: >
+  re_extract('.*продажу (?P<exch_amount>[0-9.]+) (?P<exch_currency>[A-Z]+) по курсу (?P<exch_course>[0-9.]+).*', row.comment) is not None
+condition-True: |
+  logger.debug(row.comment)
+  row.dict['outgoAccountId'] = accounts.find_by_number_exc(row.account_my).id
+  (pidx, prec) = find_prev_record(row_index, lambda r: r.amount == -to_decimal(row.dict['exch_amount']) and r.currency == row.dict['exch_currency'])
+  if pidx is not None:
+    logger.debug(f"  row_index = {row_index}; prev index = {pidx}")
+    row.dict['incomeAccount'] = prec.account_my
+    row.dict['incomeAccountId'] = accounts.find_by_number_exc(row.dict['incomeAccount']).id
+    prec.set_result('CurrencyExchange', f'соответствует {rule_id} № {row.transaction_id}, строчка № {row.row_index}')
+    logger.debug(f"  exch_amount {row.dict['exch_amount']} course {row.dict['exch_course']} from {prec.drvid}")
+  else:
+    raise Exception(f'no parent record found for {row_index}/{row.comment}')
+before-condition: |
+#  logger.debug('processing %i:%s' % (row_index, row.comment))
+output: |
+  {
+    'date' : row.date.isoformat(),
+    'comment' : f'№ {row.transaction_id}\n{row.comment}\n{import_tag}',
+    'outgoTotal': to_decimal(row.dict['exch_amount']),
+    'outgoAccount': { 'id': row.dict['incomeAccountId']},
+    'incomeAccount': { 'id': row.dict['outgoAccountId']},
+    'incomeCurrency': to_decimal(row.dict['exch_course'])
+    #'exch_amount' : row.dict['exch_amount'],
+    #'amount' : row.amount,
+    #'course' : row.dict['exch_course'],
+    #'account_to' : row.account_my,
+    #'account_currency' : row.dict['currency_account'],
+    #'exch_currency' : row.dict['exch_currency'],
+    #'currency' : row.currency
+  }
+

@@ -1,0 +1,13 @@
+__pycache__
+.idea
+logs
+venv
+test/
+geckodriver.*
+.git
+Dockerfile
+data
+data_old
+doc
+venv
+_/

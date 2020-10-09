@@ -1,0 +1,16 @@
+transaction_id: >
+  value(1)
+date: >
+  datetime.strptime(f'{value(2)} {value(3)}' , '%d.%m.%Y %H:%M:%S')
+comment: >
+  value(6)
+name_other: >
+  value(8)
+acount_other: >
+  value(9)
+account_my: >
+  value(13)
+amount: >
+  to_decimal(value(4))
+currency: >
+  value(5)

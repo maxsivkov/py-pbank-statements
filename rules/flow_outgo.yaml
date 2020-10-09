@@ -1,0 +1,21 @@
+id: Расход
+operation-type: |
+  'FlowOutgo'
+condition: >
+  accounts.exists(row.account_my) and row.amount < 0 and re_match(f'(\*;101;{taxno};.*|Комiсiя за .*|Погашення заборгованостi.*)', row.comment) is not None
+condition-True: |
+  logger.debug(row.comment)
+  row.dict['financeType'] = 'esv' if re_match(f'\*;101;{taxno};ЄСВ.*', row.comment) else \
+    'en' if re_match(f'\*;101;{taxno};Єдиний податок.*', row.comment) else \
+    'custom'
+  row.dict['account_no'] = accounts.find_by_number(row.account_my).id
+output: |
+  {
+    'date' : row.date.isoformat(),
+    'comment' : f'№ {row.transaction_id}\n{row.comment}\n{import_tag}',
+    'total' : -row.amount,
+    'payedSum' : -row.amount,
+    'account' : { 'id': row.dict['account_no'] },
+    'financeType' : row.dict['financeType'],
+  }
+
