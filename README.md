@@ -1,4 +1,15 @@
 # Bank Statements Export tool
+- [Bank Statements Export tool](#bank-statements-export-tool)
+  - [Purpose](#purpose)
+  - [Languages/frameworks](#languagesframeworks)
+  - [Описание](#описание)
+  - [Статус](#статус)
+  - [Как работает](#как-работает)
+  - [Запуск для ленивых](#запуск-для-ленивых)
+  - [Как установить](#как-установить)
+  - [Как запускать](#как-запускать)
+  - [Порядок действий](#порядок-действий)
+  - [Справка по коммандам](#справка-по-коммандам)
 ## Purpose
 Export statements from Bank Statements (usually XLS file) into set of json files, feed those files to [Taxer API](https://github.com/maxsivkov/py-taxer-api). Because this project is actual for ukrainians, all documentation pages are in russian.
 
@@ -24,7 +35,13 @@ Export statements from Bank Statements (usually XLS file) into set of json files
 - В корне проекта есть файл `config.yaml`, в котором указывается корневая папка для данных пользователя (параметр `accounts_folder`). В этой папке будет создана структура каталогов для работы софта (подпапки для юзеров, папка для входных файлов и папка для выходных файлов). А также адрес TaxerAPI (параметр `taxerapi_url`)
 - Параметры `accounts_folder` и `taxerapi_url` также можно задавать через коммандную строку (см. `python main.py --help`) или через переменные окружения (`BSTMT_ACCOUNTS_DIR` и `BSTMT_TAXER_API_URL` соответственно)
 -    
+
+## Запуск для ленивых
+Требует только установленого [Docker](https://docs.docker.com/get-docker/). Использует имаджи с [Dockerhub](https://hub.docker.com/repository/docker/maxsivkov/bank-statements)  
+[Читать](doc/how-to-run-docker-lazy.md)
+
 ## Как установить
+
  * [На десктопе](doc/how-to-install-desktop.md)
  * [Через Docker](doc/how-to-install-docker.md)
 
@@ -37,7 +54,7 @@ Export statements from Bank Statements (usually XLS file) into set of json files
 - Инициализация данных по ФОПам (это нужно сделать один раз, либо выполнять каждый раз когда меняются реквизиты ФОПа - например добавляются счета)  
   ```
   python main.py init
-  ```  
+  ```
   В результате в папке, на которую указывает `accounts_folder` должен появиться каталог для данных ФОПа, чтото типа такого:  
   ![содержимое accounts_folder](doc/accounts-folder-content.png "содержимое accounts_folder")
 - Зайти на Приват24 для бизнеса, раздел счета и выписки - выбираем все счета - Выписка - указываем период по кварталу:  
@@ -45,12 +62,12 @@ Export statements from Bank Statements (usually XLS file) into set of json files
   __II__  : 01.04.2020 - 31.06.2020  
   __III__ : 01.07.2020 - 30.09.2020  
   __IV__  : 01.10.2020 - 31.12.2020  
-  и экспорт в xls файл. Файл нужно поместить в подпапку `data` которая нахордится в папке ФОПа 
-- Выполнить 
+  и экспорт в xls файл. Файл нужно поместить в подпапку `data_in` которая нахордится в папке ФОПа 
+- Для создания json файлов выполнить 
   ```
   python main.py process
   ```
-  для создания json файлов. Они создаются в каталоге `data_out`  
+  Они создаются в каталоге `data_out`  
   По окончании операции в консоль напишется сколько обработалось операций  
   
   __!ВНИМКАНИЕ!__ в поле Комментарий каждой операции вставляется тег вида IMP-YYYY-MM-DD, где YYYY - текущий год, MM - текущий месяц, DD - текущий день. Это сделано для того чтобы можно было впоследствии найти все операции по текущей дате в таксере и например удалить, если чтото пошло не так.   
