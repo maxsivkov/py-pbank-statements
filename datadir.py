@@ -7,11 +7,11 @@ from decimal import *
 from utils import list_files
 import confuse
 import os, re
-import ujson
+import ujson, yaml
 import logging
 from taxerapi import Configuration as TaxerConfig, ApiClient as TaxerClient, AccountApi as TaxerAccountApi, AccountsApi as TaxerAccountsApi, OperationApi as TaxerOperationApi \
     , Profile, User, UserBankAccount as ApiBankAccount
-from utils import get_config_str
+from utils import get_config_str, get_config_int
 
 @dataclass
 class UserAccount:
@@ -56,8 +56,9 @@ class DataDir(object):
     accounts_fn:str = "accounts.json"
     config_fn: str = "config.yaml"
     default_rules_folder:str = 'rules'
-    default_input_folder:str = 'data'
+    default_input_folder:str = 'data_in'
     default_output_folder: str = 'data_out'
+    default_first_row: int = 6
 
     def __init__(self, config:confuse.Configuration):
         self.logger = logging.getLogger(__name__)
@@ -158,6 +159,16 @@ class DataDir(object):
             if not os.path.exists(user_folder):
                 self.logger.debug(f'Creating folder {user_folder}')
                 os.mkdir(user_folder)
+                # Store default config
+                user_config: Dict = {
+                    'datafile': {
+                        'first_row': get_config_int(self.config, 'first_row', DataDir.default_first_row)
+                    },
+                    'input_folder': get_config_str(self.config, 'input_folder', DataDir.default_input_folder),
+                    'output_folder': get_config_str(self.config, 'output_folder', DataDir.default_output_folder),
+                }
+                with open(self.user_config_path(u.id), encoding='utf8', mode='w') as f:
+                    yaml.dump(user_config, f)
             self.create_folder_not_exists(self.user_folder_rules(u.id))
             self.create_folder_not_exists(self.user_folder_input(u.id))
             self.create_folder_not_exists(self.user_folder_output(u.id))

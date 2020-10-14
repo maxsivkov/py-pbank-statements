@@ -2,7 +2,7 @@ from typing import List, Dict, Tuple
 import re
 import os
 import logging, logging.config
-import ujson
+import ujson, yaml
 import datetime
 from config import configuration
 from datadir import DataDir
@@ -68,7 +68,7 @@ if config['action'].as_str() == 'process':
             #datafile_parts:str = os.path.splitext(os.path.basename(datafile))
             outputfn = os.path.join(user_data.user_folder_output(userid), os.path.basename(datafile))
 
-            stmt_data = XlsxDriver(filepath=datafile, output_file_path=outputfn, first_row=get_config_int(user_data.config, 'datafile.firstrow', '6'))
+            stmt_data = XlsxDriver(filepath=datafile, output_file_path=outputfn, first_row=get_config_int(user_data.config, 'datafile.first_row'))
             stmt_data.read()
 
             from execution_context import ExecutionContext
