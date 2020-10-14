@@ -1,0 +1,20 @@
+version: '3.4'
+
+services:
+  taxerapi:
+    image: maxsivkov/taxerapi
+    environment:
+      - "TAXER_COOKIES=${TAXER_COOKIES}"
+      - "PORT=80"
+      - "HOST=0.0.0.0"
+    ports:
+      - "7080:80"
+  statements:
+    image: maxsivkov/bank-statements
+    depends_on:
+      - taxerapi
+    environment:
+      - "BSTMT_TAXER_API_URL=http://taxerapi"
+    volumes:
+      - ./data-folder:/app/data
+    entrypoint: ["entrypoint"]

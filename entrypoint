@@ -1,0 +1,3 @@
+#!/bin/sh 
+echo Checking $BSTMT_TAXER_API_URL then running $@
+wait-for-http $BSTMT_TAXER_API_URL/docs -- python main.py $@

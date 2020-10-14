@@ -72,15 +72,15 @@ class DataDir(object):
 
         self.update_conf()
 
+        self.verbose = config['verbose'].as_number()
         taxer_config: TaxerConfig = TaxerConfig()
         taxer_config.host = self.url
-        taxer_config.debug = True
+        taxer_config.debug = True if self.verbose else False
         cli: TaxerClient = TaxerClient(configuration=taxer_config)
         self.acc_api = TaxerAccountApi(api_client=cli)
         self.accs_api = TaxerAccountsApi(api_client=cli)
         self.operation_api = TaxerOperationApi(api_client=cli)
 
-        self.verbose = config['verbose'].as_number()
         self.logger.info(f'config_dir {config.config_dir()}')
         self.logger.info(f'user_config_path {config.user_config_path()}')
         self.logger.info(f'accounts_folder \'{self.accounts_folder}\'')

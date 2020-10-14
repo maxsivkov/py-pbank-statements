@@ -31,12 +31,13 @@ LABEL version="0.0.1"
 STOPSIGNAL SIGINT
 
 RUN apk update && \
-    apk --no-cache --update add libstdc++ && \
+    apk --no-cache --update add libstdc++ jq netcat-openbsd curl wget && \
     rm -rf /var/cache/apk/*
 
 
 WORKDIR /app
 COPY --from=build-env /app /app
-ENV PATH="/app/venv/bin:$PATH"
+RUN chmod a+x wait-for-http && chmod a+x entrypoint
+ENV PATH="/app/venv/bin:/app:$PATH"
 
-ENTRYPOINT ["/app/venv/bin/python", "main.py"]
+ENTRYPOINT ["python", "main.py"]

@@ -8,6 +8,7 @@ from config import configuration
 from datadir import DataDir
 from stmt_driver_xlsx import XlsxDriver
 from utils import list_files, get_config_str, get_config_int
+from taxerapi import Profile
 
 
 def setup_logger(filename:str):
@@ -101,18 +102,16 @@ if config['action'].as_str() == 'push':
                 processed_files = processed_files + 1
         print(f'DONE. Processed {processed_files} statements')
 
-def get_request():
-    import requests
-    r = requests.get('http://atlaz.win/~maxx/1.json')
-    d:Dict = r.json()
-    print(d)
-
-    print('status')
-
-    print(d["status"])
-
 if config['action'].as_str() == 'test':
-    print(f'Action {config["action"].as_str()}')
-    #get_request()
+    logger.info(f'\nAction {config["action"].as_str()}\n')
+    logger.info(f'Requesting Profile from TaxerApi')
+    profile: Profile = d.acc_api.get_account_api()
+    logger.info(f'Account id: {profile.account_id}')
+    logger.info(f'Account name: {profile.account_name}')
+    logger.info(f'Account users list')
+    for user in profile.users:
+        logger.info(f'  user_id: {user.id}')
+        logger.info(f'  user_tax: {user.id_key}')
+        logger.info(f'  user_title: {user.title_name}')
 
 #https://www.ibancalculator.com/iban_validieren.html
