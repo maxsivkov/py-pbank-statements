@@ -3,13 +3,15 @@ operation-type: |
   'FlowIncome'
 condition: >
   accounts.exists(row.account_my) and row.amount > 0 and not re_match('родажа.*клиента', row.name_other)
+condition-False: |
+  logger.debug('Income: FALSE :: %s :: %s', row.amount, row.comment)
 condition-True: |
-  logger.debug(row.comment)
-  row.dict['account_no'] = accounts.find_by_number(row.account_my).id
+  logger.debug('Income: TRUE  :: %s :: %s', row.amount, row.comment)
+  row.dict['account_no'] = accounts.find_by_number_exc(row.account_my).id
 output: |
   {
     'date' : row.date.isoformat(),
     'comment' : f'№ {row.transaction_id}\n{row.comment}\n{import_tag}',
     'total' : row.amount,
-    'account' : { 'id': row.dict['account_no'] }
+    'account' : { 'id': row.dict["account_no"] }
   }

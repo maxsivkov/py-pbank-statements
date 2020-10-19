@@ -1,7 +1,7 @@
 from typing import List, Dict
 from dataclasses import dataclass, field
 from marshmallow import Schema, fields, post_dump
-from marshmallow.utils import EXCLUDE, INCLUDE
+from marshmallow.utils import EXCLUDE, INCLUDE, RAISE
 import marshmallow_dataclass
 from decimal import *
 from utils import list_files
@@ -23,17 +23,16 @@ class UserAccount:
     bank: str = field(default=None)
     mfo: str = field(default=None)
     comment: str = field(default=None)
-    tfBankPlace: str = field(default=None)
-    tfBankSwift: str = field(default=None)
-    tfBankCorr: str = field(default=None)
-    tfBankCorrPlace: str = field(default=None)
-    tfBankCorrSwift: str = field(default=None)
-    tfBankCorrAccount: str = field(default=None)
+    tf_bank_place: str = field(default=None)
+    tf_bank_swift: str = field(default=None)
+    tf_bank_corr: str = field(default=None)
+    tf_bank_corr_place: str = field(default=None)
+    tf_bank_corr_swift: str = field(default=None)
+    tf_bank_corr_account: str = field(default=None)
 
     class Meta:
         unknown=EXCLUDE
         render_module = ujson
-
 
 class UserAccounts:
     def __init__(self, accounts:List[UserAccount]):
@@ -135,7 +134,7 @@ class DataDir(object):
         accounts_path = os.path.join(self.user_folder_path(userid), DataDir.accounts_fn)
         with open(accounts_path, 'r', encoding='utf-8') as f:
             accounts_json = ujson.load(f)
-        return UserAccounts(schema().load(accounts_json, many=True, partial=True, unknown=EXCLUDE))
+        return UserAccounts(schema().load(accounts_json, many=True, partial=True, unknown=RAISE))
 
     def UserDataFiles(self, userid:int) -> List[str]: return list_files(self.user_folder_input(userid), r'.*\.xlsx$')
 

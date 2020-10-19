@@ -38,12 +38,14 @@ if config['action'].as_str() == 'init':
 
 if config['action'].as_str() == 'process':
     for userid in d.Users():
+
         if not os.path.exists(d.user_config_path(userid)):
             raise ValueError(f'config file for user {userid} not found')
         user_data = DataDir(config)
         user_data.add_config(d.user_config_path(userid))
 
-        #acc = d.UserAccounts(userid)
+        acc = d.UserAccounts(userid)
+
         # try to convert xls to xlsx
         for datafile in d.UserXLSDataFiles(userid):
             try:
@@ -73,7 +75,7 @@ if config['action'].as_str() == 'process':
 
             from execution_context import ExecutionContext
 
-            ec = ExecutionContext(stmt_data, d.UserAccounts(userid), list_files('rules', r'.*\.yaml'), d.UserTaxNumber(userid), d.user_folder_output(userid))
+            ec = ExecutionContext(stmt_data, acc, list_files('rules', r'.*\.yaml'), d.UserTaxNumber(userid), d.user_folder_output(userid))
             (total_rows, rows_processed) = ec.execute(import_tag)
             stmt_data.close()
             logger.info(f'DONE. Processed {total_rows} rows, prepared {rows_processed} statements with tag {import_tag}')
