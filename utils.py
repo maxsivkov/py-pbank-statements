@@ -11,7 +11,7 @@ def to_decimal(o):
         return Decimal(o.replace(',', '.', 1))
     return o
 
-def get_config(c:Configuration, name:str, f, default:str = None):
+def get_config(c:Configuration, name:str, f, default = None):
     names:List[str] = name.split('.')
     subc = c
     for i, n in enumerate(names):
@@ -21,5 +21,6 @@ def get_config(c:Configuration, name:str, f, default:str = None):
 
     return default
 
+def get_config_v(c:Configuration, name:str, default:str = None) -> str: return get_config(c, name, lambda v : v.get(), default)
 def get_config_str(c:Configuration, name:str, default:str = None) -> str: return get_config(c, name, lambda v : v.as_str(), default)
-def get_config_int(c:Configuration, name:str, default:str = None) -> int: return get_config(c, name, lambda v : v.as_number(), default)
+def get_config_int(c:Configuration, name:str, default:int = None) -> int: return get_config(c, name, lambda v : v.as_number(), default)

@@ -12,5 +12,15 @@ def parser() -> argparse.ArgumentParser:
                         default=os.getenv('BSTMT_OUTPUT_DIR', DataDir.default_output_folder))
     parser.add_argument("-r", "--first_row", nargs='?', help="first row",
                         default=os.getenv('BSTMT_FIRST_ROW', DataDir.default_first_row))
+
+    parser.add_argument("-p", "--period", nargs='?', help="period",
+                        default=os.getenv('BSTMT_PERIOD', None), dest='statements.period.value')
+    parser.add_argument("-s", "--period-start", nargs='?', help="period start",
+                        default=os.getenv('BSTMT_PERIOD_START', None), dest='statements.period.start')
+    parser.add_argument("-e", "--period-end", nargs='?', help="period end",
+                        default=os.getenv('BSTMT_PERIOD_END', None), dest='statements.period.end')
+
     parser.add_argument('action', help='Action: init - initialize; process - process input files, prepare json output files; push - upload json files to taxer-api, test')
+
+    #parser.add_argument('args', nargs=argparse.REMAINDER)
     return parser

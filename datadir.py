@@ -11,7 +11,7 @@ import ujson, yaml
 import logging
 from taxerapi import Configuration as TaxerConfig, ApiClient as TaxerClient, AccountApi as TaxerAccountApi, AccountsApi as TaxerAccountsApi, OperationApi as TaxerOperationApi \
     , Profile, User, UserBankAccount as ApiBankAccount
-from utils import get_config_str, get_config_int
+from utils import get_config_str, get_config_int, get_config_v
 
 @dataclass
 class UserAccount:
@@ -62,13 +62,13 @@ class DataDir(object):
     def __init__(self, config:confuse.Configuration):
         self.logger = logging.getLogger(__name__)
         self.__config = config
-        self.accounts_folder = get_config_str(self.config, 'accounts_folder')
+        self.accounts_folder = self.get_config_str('accounts_folder')
         if self.accounts_folder is None:
             raise ValueError("accounts_folder must be set")
         self.users_root = self.accounts_folder
         if not os.path.exists(self.accounts_folder):
             os.mkdir(self.accounts_folder)
-        self.url = get_config_str(self.config, 'taxerapi_url', 'http://127.0.0.1:7080')
+        self.url = self.get_config_str('taxerapi_url', 'http://127.0.0.1:7080')
 
         self.update_conf()
 
@@ -89,10 +89,9 @@ class DataDir(object):
     def data_path(self, p:str): return os.path.join(self.accounts_folder, p)
 
     def update_conf(self):
-        self.rules_folder:str = get_config_str(self.config, 'rules_folder', DataDir.default_rules_folder)
-        self.input_folder: str = get_config_str(self.config, 'input_folder', DataDir.default_input_folder)
-        self.output_folder: str = get_config_str(self.config, 'output_folder', DataDir.default_output_folder)
-
+        self.rules_folder:str = self.get_config_str('rules_folder', DataDir.default_rules_folder)
+        self.input_folder: str = self.get_config_str('input_folder', DataDir.default_input_folder)
+        self.output_folder: str = self.get_config_str('output_folder', DataDir.default_output_folder)
 
     def add_config(self, configfn):
         self.__config.add(confuse.ConfigSource(confuse.load_yaml(configfn), configfn))
@@ -120,6 +119,10 @@ class DataDir(object):
     @property
     def config(self):
         return self.__config
+
+    def get_config_v(self, name: str, default: str = None) -> str: return get_config_v(self.config, name, default)
+    def get_config_str(self, name: str, default: str = None) -> str: return get_config_str(self.config, name, default)
+    def get_config_int(self, name: str, default: int = None) -> int: return get_config_int(self.config, name, default)
 
     def Users(self) -> List[int]:
         users:List[int] = []
@@ -161,10 +164,10 @@ class DataDir(object):
                 # Store default config
                 user_config: Dict = {
                     'datafile': {
-                        'first_row': get_config_int(self.config, 'first_row', DataDir.default_first_row)
+                        'first_row': self.get_config_int('first_row', DataDir.default_first_row)
                     },
-                    'input_folder': get_config_str(self.config, 'input_folder', DataDir.default_input_folder),
-                    'output_folder': get_config_str(self.config, 'output_folder', DataDir.default_output_folder),
+                    'input_folder': self.get_config_str('input_folder', DataDir.default_input_folder),
+                    'output_folder': self.get_config_str('output_folder', DataDir.default_output_folder),
                 }
                 with open(self.user_config_path(u.id), encoding='utf8', mode='w') as f:
                     yaml.dump(user_config, f)
@@ -172,10 +175,12 @@ class DataDir(object):
             self.create_folder_not_exists(self.user_folder_input(u.id))
             self.create_folder_not_exists(self.user_folder_output(u.id))
 
+    def GetUserAccounts(self, userid:int) -> List[ApiBankAccount]: return self.accs_api.get_user_accounts_all(userid)
+
     def UpdateUserAccounts(self, userid:int):
         accounts_path = os.path.join(self.user_folder_path(userid), DataDir.accounts_fn)
         self.logger.debug(f'Getting accounts for {userid}...')
-        accounts: List[ApiBankAccount] = self.accs_api.get_user_accounts_all(userid)
+        accounts: List[ApiBankAccount] = self.GetUserAccounts(userid)
         with open(accounts_path, mode='w', encoding='utf-8') as outfile:
             ujson.dump([a.to_dict() for a in accounts], outfile, ensure_ascii=False, sort_keys=True, indent=4)
 

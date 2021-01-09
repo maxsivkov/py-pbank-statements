@@ -1,1 +1,11 @@
+datafile:
+  first_row: 6
 accounts_folder: data
+input_folder: data_in
+output_folder: data_out
+statements:
+  ignore_accounts: ['UA..{6}.000002603.*']
+  period:
+    value: prev
+    start:
+    end:
