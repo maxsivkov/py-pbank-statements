@@ -55,6 +55,7 @@ class ApiBase(object):
                 quarter_start = f'{year}-{ApiBase.QUARTER_FIRST_DATE[quarter-1]}'
                 first_date = dateutil.parser.parse(quarter_start)
                 last_date = first_date + relativedelta(months=3, days=-1)
+        last_date = last_date.replace(hour=23, minute=59, second=59)
         return first_date, last_date
 
     @property
@@ -77,7 +78,7 @@ class ApiBase(object):
         exps = [r'(?P<day>\d{1,2}).(?P<month>\d{1,2}).(?P<year>\d{4})',  #20.1.2020, 20-1-2020
                 r'(?P<year>\d{4}).(?P<month>\d{1,2}).(?P<day>\d{1,2})',  # 2020.1.20, 2020-1-20
                 r'(?P<year>\d{4}).(?P<quarter>\d)',  # 2020.4, 2020-4
-                r'(?P<year>\d{4}).(?P<quarter>[iIvV]{1,2})',  # 2020.iv, 2020-iv
+                r'(?P<year>\d{4}).(?P<quarter>[iIvV]{1,3})',  # 2020.iv, 2020-iv
                 r'(?P<quarter>\d).(?P<year>\d{4})',  # 4.2020, 4-2020
                 r'(?P<quarter>[iIvV]{1,2}).(?P<year>\d{4})',  # iv.2020, iv-2020
                 ]
@@ -93,6 +94,13 @@ class ApiBase(object):
             if re.match(ap, account) is not None:
                 return True
         return False
+
+
+
+
+"""
+https://docs.google.com/document/d/e/2PACX-1vTtKvGa3P4E-lDqLg3bHRF6Wi9S7GIjSMFEFxII5qQZBGxuTXs25hQNiUU1hMZQhOyx6BNvIZ1bVKSr/pub
+"""
 
 class PbApi(ApiBase):
     def __init__(self, d:DataDir):

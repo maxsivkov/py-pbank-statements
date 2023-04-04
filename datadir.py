@@ -56,6 +56,7 @@ class DataDir(object):
     config_fn: str = "config.yaml"
     default_rules_folder:str = 'rules'
     default_input_folder:str = 'data_in'
+    default_input_file: str = None
     default_output_folder: str = 'data_out'
     default_first_row: int = 6
 
@@ -69,7 +70,7 @@ class DataDir(object):
         if not os.path.exists(self.accounts_folder):
             os.mkdir(self.accounts_folder)
         self.url = self.get_config_str('taxerapi_url', 'http://127.0.0.1:7080')
-
+        self.input_files = self.get_config_str('process.file_name', None)
         self.update_conf()
 
         self.verbose = config['verbose'].as_number()
@@ -139,7 +140,7 @@ class DataDir(object):
             accounts_json = ujson.load(f)
         return UserAccounts(schema().load(accounts_json, many=True, partial=True, unknown=RAISE))
 
-    def UserDataFiles(self, userid:int) -> List[str]: return list_files(self.user_folder_input(userid), r'.*\.xlsx$')
+    def UserDataFiles(self, userid:int) -> List[str]: return list_files(self.user_folder_input(userid), self.input_files if self.input_files else r'.*\.xlsx$')
 
     def UserXLSDataFiles(self, userid: int) -> List[str]:
         return list_files(self.user_folder_input(userid), r'.*\.xls$')

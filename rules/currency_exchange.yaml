@@ -6,7 +6,7 @@ condition: >
 condition-True: |
   logger.debug(row.comment)
   row.dict['outgoAccountId'] = accounts.find_by_number_exc(row.account_my).id
-  (pidx, prec) = find_prev_record(row_index, lambda r: r.amount == -to_decimal(row.dict['exch_amount']) and r.currency == row.dict['exch_currency'])
+  (pidx, prec) = find_closest_record(row_index, lambda r: r.amount == -to_decimal(row.dict['exch_amount']) and r.currency == row.dict['exch_currency'])
   if pidx is not None:
     logger.debug(f"  row_index = {row_index}; prev index = {pidx}")
     row.dict['incomeAccount'] = prec.account_my

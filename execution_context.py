@@ -1,5 +1,6 @@
 from typing import Dict, Tuple
 import ujson, logging
+from itertools import zip_longest
 from utils import *
 import yaml
 from stmt_driver_base import StatementsDriverBase, StatementRow
@@ -22,6 +23,7 @@ class ExecutionContext(object):
         re_match = lambda rx, s: row.re_match(rx, s)
         find_prev_record = lambda idx, f: self.find_prev_record(idx, f)
         find_next_record = lambda idx, f: self.find_next_record(idx, f)
+        find_closest_record = lambda idx, f: self.find_closest_record(idx, f)
 
         _globals = {
             **globals(),
@@ -31,6 +33,7 @@ class ExecutionContext(object):
             'row_index': row_index,
             'find_prev_record': find_prev_record,
             'find_next_record': find_next_record,
+            'find_closest_record': find_closest_record,
             're_extract': re_extract,
             're_match': re_match,
             'accounts' : self.accounts,
@@ -75,6 +78,13 @@ class ExecutionContext(object):
         if record_index is None: raise Exception(f'record_index is not defined')
         for idx in reversed(range(0, record_index)):
             if f(self.stmts.rows[idx]): return (idx, self.stmts.rows[idx])
+        return (None, None)
+
+    def find_closest_record(self, record_index: int, f) -> Tuple:
+        if record_index is None: raise Exception(f'record_index is not defined')
+        for idxs in zip_longest(reversed(range(0, record_index)), range(record_index, len(self.stmts.rows))):
+            for idx in [i for i in idxs if i is not None]:
+                if f(self.stmts.rows[idx]): return (idx, self.stmts.rows[idx])
         return (None, None)
 
     def find_next_record(self, record_index: int, f) -> Tuple:
