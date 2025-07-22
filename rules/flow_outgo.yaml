@@ -2,13 +2,13 @@ id: Расход
 operation-type: |
   'FlowOutgo'
 condition: >
-  accounts.exists(row.account_my) and row.amount < 0 and re_match(f'.*(\*;101;{taxno};|Ком[iі]с[iі]я (за|по) |Переказ власних коштiв|Погашення заборгованостi за|Сплата ЄП).*', row.comment) is not None
+  accounts.exists(row.account_my) and row.amount < 0 and re_match(f'.*(\*;101;{taxno};|Ком[iі]с[iі]я (за|по) |Переказ власних коштiв|Погашення заборгованостi за|Сплата ЄП|Сплата ЄСВ|Сплата військового збору).*', row.comment) is not None
 condition-False: |
   logger.debug('Outgo:  FALSE :: %s :: %s', row.amount, row.comment)
 condition-True: |
   logger.debug('Outgo:  TRUE  :: %s :: %s',row.amount, row.comment)
   row.dict['financeType'] = 'esv' if re_match(f'\*;101;{taxno};ЄСВ.*', row.comment) else \
-    'en' if re_match(f'\*;101;{taxno};Єдиний податок.*', row.comment) or re_match(f'.*Сплата ЄП.*', row.comment) else \
+    'ep' if re_match(f'\*;101;{taxno};Єдиний податок.*', row.comment) or re_match(f'.*Сплата ЄП.*', row.comment) else \
     'custom'
   row.dict['account_no'] = accounts.find_by_number_exc(row.account_my).id
 output: |

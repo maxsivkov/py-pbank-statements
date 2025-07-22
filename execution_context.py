@@ -84,7 +84,7 @@ class ExecutionContext(object):
         if record_index is None: raise Exception(f'record_index is not defined')
         for idxs in zip_longest(reversed(range(0, record_index)), range(record_index, len(self.stmts.rows))):
             for idx in [i for i in idxs if i is not None]:
-                if f(self.stmts.rows[idx]): return (idx, self.stmts.rows[idx])
+                if not self.stmts.rows[idx].is_processed() and f(self.stmts.rows[idx]): return (idx, self.stmts.rows[idx])
         return (None, None)
 
     def find_next_record(self, record_index: int, f) -> Tuple:

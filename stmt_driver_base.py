@@ -38,6 +38,9 @@ class StatementRow(object):
         if self.result_:
             self.result_(op_type, text)
 
+    def is_processed(self):
+        return self.processed
+
 class StatementsDriverBase(ABC):
 
     def __init__(self, filepath:str):
